@@ -18,5 +18,6 @@ const styles = StyleSheet.create({
     progressbar: {
         width: '100%',
        marginTop: 48,
+       color: 'white',
     }
 })

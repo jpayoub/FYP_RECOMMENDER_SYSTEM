@@ -10,7 +10,8 @@ import LowerPartQuests from '../components/molecules/LowerPartQuests';
 
 const Question4= () => {
 
- 
+    const pageNb = 4;
+
 
     
 

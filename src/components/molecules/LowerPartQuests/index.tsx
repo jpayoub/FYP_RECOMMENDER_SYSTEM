@@ -4,6 +4,8 @@ import CustomText from '../../atoms/CustomText'
 import CustomRangeSlider from '../../atoms/CustomRangeSlider'
 import CustomButton from '../../atoms/CustomButton'
 import { useNavigation } from '@react-navigation/native'
+import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom'
+
 
 const index = ({question, type, questpage}) => {
     const navigation = useNavigation();
@@ -13,6 +15,7 @@ const index = ({question, type, questpage}) => {
     }
 
   return (
+    <SlideUpFromBottom>
     <View style={styles.SecondPart}>
             <CustomText 
                 text={question}
@@ -25,8 +28,9 @@ const index = ({question, type, questpage}) => {
                 type='PRIMARY' />
                    
         </View>
-  )
-}
+        </SlideUpFromBottom>
+  );
+};
 
 export default index;
 
@@ -43,5 +47,5 @@ const styles = StyleSheet.create({
     },
     question: {
         padding: 50,
-    }
-})
+    },
+});

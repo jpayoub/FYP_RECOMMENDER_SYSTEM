@@ -21,37 +21,52 @@ import Question14 from '../screens/Question14';
 import Question15 from '../screens/Question15';
 import Question16 from '../screens/Question16';
 import Question17 from '../screens/Question17';
-
-
+import userSlice from '../redux/slices/userSlice';
+import { UseSelector, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 const MainStackNavigator = createNativeStackNavigator();
-
-
-const MainNavigator = () => {
-  return (
-   <MainStackNavigator.Navigator> 
-    <MainStackNavigator.Screen name="SignIn" component={SignIn} />
-    <MainStackNavigator.Screen name="SignUp" component={SignUp} />
-    <MainStackNavigator.Screen name="Question1" component={Question1} options={{headerTitle: '', headerBackground: () => ( <CustomProgressBar progress={0.05882353} /> ),}}/>
-    <MainStackNavigator.Screen name="Question2" component={Question2} options={{headerTitle: '',headerBackground: () => ( <CustomProgressBar progress={0.11764706} /> ),}}/>
-    <MainStackNavigator.Screen name="Question3" component={Question3} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question4" component={Question4} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question5" component={Question5} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question6" component={Question6} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question7" component={Question7} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question8" component={Question8} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question9" component={Question9} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question10" component={Question10} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question11" component={Question11} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question12" component={Question12} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question13" component={Question13} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question14" component={Question14} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question15" component={Question15} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question16" component={Question16} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-    <MainStackNavigator.Screen name="Question17" component={Question17} options={{headerBackground: () => ( <CustomProgressBar progress={0.5} /> ),}}/>
-
-
-   </MainStackNavigator.Navigator>
+const AuthenticationStackNavigation = createNativeStackNavigator();
+const AuthenticatedStackNavigator = createNativeStackNavigator();
+const AuthenticatedNavigator=()=>{
+  return(
+    <AuthenticatedStackNavigator.Navigator >
+    <AuthenticatedStackNavigator.Screen name="Question1" component={Question1} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question2" component={Question2} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question3" component={Question3} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question4" component={Question4} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question5" component={Question5} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question6" component={Question6} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question7" component={Question7} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question8" component={Question8} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question9" component={Question9} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question10" component={Question10} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question11" component={Question11} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question12" component={Question12} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question13" component={Question13} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question14" component={Question14} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question15" component={Question15} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question16" component={Question16} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question17" component={Question17} options={{headerShown:false}}/>
+    </AuthenticatedStackNavigator.Navigator>
   )
+}
+
+const AuthenticationNavigator = () => {
+  return (
+   <AuthenticationStackNavigation.Navigator> 
+    <AuthenticationStackNavigation.Screen name="SignIn" component={SignIn} />
+    <AuthenticationStackNavigation.Screen name="SignUp" component={SignUp} />
+
+
+
+   </AuthenticationStackNavigation.Navigator>
+  )
+}
+const MainNavigator = () =>{
+  const isLogged = useSelector((state:RootState)=>state.isLoggedIn);
+  return isLogged?<AuthenticatedNavigator/>:<AuthenticationNavigator/>;
+
+
 }
 
 export default MainNavigator

@@ -9,6 +9,7 @@ const index = ({text, type}) => {
     <CustomText
         text={text}
         type={type} />
+        
     
 </View>
   )

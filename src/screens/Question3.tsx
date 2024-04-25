@@ -8,9 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 import UpperPartQuests from '../components/molecules/UpperPartQests';
 import LowerPartQuests from '../components/molecules/LowerPartQuests';
 
-const Question2= () => {
+const Question3= () => {
 
- 
+    const pageNb = 3;
+
 
     
 
@@ -34,7 +35,7 @@ const Question2= () => {
   )
 }
 
-export default Question2;
+export default Question3;
 
 const styles = StyleSheet.create({
     container: {

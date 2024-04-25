@@ -22,6 +22,8 @@ const index = () => {
       lowerLimit={1}
       upperLimit={5}
       onValueChange={(value)=>setChosenRange(value)}
+      minimumTrackTintColor="blue"
+      maximumTrackTintColor="blue"
       step={1}
       />
     </View>

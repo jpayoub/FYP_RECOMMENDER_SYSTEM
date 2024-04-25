@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import CustomInput from '../components/atoms/CustomInput';
 import CustomButton from '../components/atoms/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-
-
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/slices/userSlice';
 
 const SignIn = () => {
+  const dispatch = useDispatch()
 
     const navigation = useNavigation();
 
@@ -21,7 +22,9 @@ const SignIn = () => {
         navigation.navigate("SignUp");
     };
     const navigateToQuest1 = () => {
-        navigation.navigate("Question1");
+      dispatch(login())
+      
+        //navigation.navigate("Question1");
     };  
     
   return (
