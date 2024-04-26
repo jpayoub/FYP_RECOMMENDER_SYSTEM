@@ -24,6 +24,7 @@ import Question17 from '../screens/Question17';
 import userSlice from '../redux/slices/userSlice';
 import { UseSelector, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import Question18 from '../screens/Question18';
 const MainStackNavigator = createNativeStackNavigator();
 const AuthenticationStackNavigation = createNativeStackNavigator();
 const AuthenticatedStackNavigator = createNativeStackNavigator();
@@ -47,6 +48,8 @@ const AuthenticatedNavigator=()=>{
     <AuthenticatedStackNavigator.Screen name="Question15" component={Question15} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Question16" component={Question16} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Question17" component={Question17} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Question18" component={Question18} options={{headerShown:false}}/>
+
     </AuthenticatedStackNavigator.Navigator>
   )
 }
@@ -54,8 +57,8 @@ const AuthenticatedNavigator=()=>{
 const AuthenticationNavigator = () => {
   return (
    <AuthenticationStackNavigation.Navigator> 
-    <AuthenticationStackNavigation.Screen name="SignIn" component={SignIn} />
-    <AuthenticationStackNavigation.Screen name="SignUp" component={SignUp} />
+    <AuthenticationStackNavigation.Screen name="SignIn" component={SignIn} options={{headerShown:false}} />
+    <AuthenticationStackNavigation.Screen name="SignUp" component={SignUp} options={{headerShown:false}} />
 
 
 

@@ -32,7 +32,7 @@ const Question17= () => {
         <LowerPartQuests 
             question="What do you prefer indoor or outdoor?"
             type="Title2"
-            nextpage="Question1" /> 
+            nextpage="Question18" /> 
 
 
         

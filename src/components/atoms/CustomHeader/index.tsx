@@ -12,7 +12,7 @@ const index = ({}) => {
   return (
     <View>
       <View style = {styles.container}>
-        <Text style={styles.progressnumber}>{pageNb}/ <Text style={styles.totalprogress}>17</Text> </Text>
+        <Text style={styles.progressnumber}>{pageNb}/ <Text style={styles.totalprogress}>18</Text> </Text>
       </View>
       <CustomProgressBar />
     </View>

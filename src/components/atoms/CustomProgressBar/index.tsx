@@ -13,7 +13,7 @@ const index = ({}) => {
   return (
     <View>
       <Progress.Bar style={styles.progressbar}
-      progress={pageNb/17} 
+      progress={pageNb/18} 
       width={412}/>
     </View>
   )
