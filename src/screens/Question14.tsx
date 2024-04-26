@@ -26,7 +26,8 @@ const Question14= () => {
         <LowerPartQuests 
             question="What do you prefer indoor or outdoor?"
             type="Title2"
-            questpage="Question15"
+            nextpage="Question15"
+            pageNb={pageNb}
         /> 
 
 

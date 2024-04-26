@@ -15,24 +15,35 @@ const styles = StyleSheet.create({
 
     container: {
 
-        width: 'auto',
+        width: '100%',
         padding: 12, 
         paddingHorizontal:50,
         marginVertical: 5,
 
         alignItems: 'center',
-        borderRadius: 5,
+        borderRadius: 12,
     },
 
     container_PRIMARY: {
         backgroundColor: 'blue',
 
     },
+    container_NEXT: {
+        backgroundColor: 'blue',
+        width: 'auto',
+        paddingHorizontal: 70,
+    },
 
     container_TERTIARY: {
         borderColor: 'blue',
         borderWidth: 1,
     },
+    text_NEXT: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 20,
+    },
+
 
     text_PRIMARY: {
         fontWeight: 'bold',

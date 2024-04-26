@@ -1,12 +1,14 @@
-import { View, Text, StyleSheet, Alert } from 'react-native'
+import { View, Text, StyleSheet, Image, Alert, useWindowDimensions } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from '../components/atoms/CustomInput';
 import CustomButton from '../components/atoms/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/userSlice';
-
+import logo from '../assets/images/jpayoub.jpg';
 const SignIn = () => {
+
+  const {height} = useWindowDimensions();
   const dispatch = useDispatch()
 
     const navigation = useNavigation();
@@ -29,6 +31,9 @@ const SignIn = () => {
     
   return (
     <View style={Styles.container}>
+      
+        <Image source={logo} style={[Styles.logo, {height: height*0.2}]} />
+      
       <CustomInput 
       placeholder="Email" 
       value={email} 
@@ -69,6 +74,7 @@ const SignIn = () => {
 
 const Styles = StyleSheet.create({
     container: {
+      alignItems: 'center',
         padding: 15,
     },
     link: {
@@ -76,6 +82,13 @@ const Styles = StyleSheet.create({
     },
     logintext: {
       textAlign: 'center',
+    },
+    logo: {
+      width: '70%',
+      maxWidth: 300,
+      maxHeight: 200,
+      marginBottom: 35,
+      borderRadius: 20,
     }
 })
 

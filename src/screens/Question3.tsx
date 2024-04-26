@@ -21,12 +21,14 @@ const Question3= () => {
         <UpperPartQuests 
             text="Question3"
             type="Title1"
+            pageNb={pageNb}
         /> 
 
         <LowerPartQuests 
             question="What do you prefer indoor or outdoor?"
             type="Title2"
-            questpage="Question4"
+            nextpage="Question4"
+            pageNb={pageNb}
         /> 
 
 

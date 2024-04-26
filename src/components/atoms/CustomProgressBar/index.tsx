@@ -16,8 +16,10 @@ export default index;
 
 const styles = StyleSheet.create({
     progressbar: {
-        width: '100%',
-       marginTop: 48,
-       color: 'white',
+      width: '100%',
+       marginTop: 35,
+       color: 'rgba(255, 255, 255, 1)',
+       borderColor: '#FFFFFF',
+       borderWidth: 1,
     }
 })

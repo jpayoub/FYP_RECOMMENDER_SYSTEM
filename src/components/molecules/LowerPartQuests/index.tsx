@@ -5,13 +5,15 @@ import CustomRangeSlider from '../../atoms/CustomRangeSlider'
 import CustomButton from '../../atoms/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom'
+import CustomProgressBar from '../../atoms/CustomProgressBar'
 
 
-const index = ({question, type, questpage}) => {
+const index = ({question, type, nextpage, pageNb}) => {
     const navigation = useNavigation();
+
     const navigatetoQues = () => {
 
-        navigation.navigate(questpage, {});    
+        navigation.navigate(nextpage, {});    
     }
 
   return (
@@ -21,11 +23,15 @@ const index = ({question, type, questpage}) => {
                 text={question}
                 type={type}
             />
-            <CustomRangeSlider />
+            <CustomRangeSlider
+                pageNb={pageNb} />
             <CustomButton
                 onPress={navigatetoQues}
                 text="Next"
-                type='PRIMARY' />
+                type='NEXT' />
+
+            <CustomProgressBar
+            progress={0.5} />
                    
         </View>
         </SlideUpFromBottom>

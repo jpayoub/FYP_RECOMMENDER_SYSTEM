@@ -63,7 +63,7 @@ const AuthenticationNavigator = () => {
   )
 }
 const MainNavigator = () =>{
-  const isLogged = useSelector((state:RootState)=>state.isLoggedIn);
+  const isLogged = useSelector((state:RootState)=>state.user.isLoggedIn);
   return isLogged?<AuthenticatedNavigator/>:<AuthenticationNavigator/>;
 
 

@@ -10,7 +10,8 @@ import LowerPartQuests from '../components/molecules/LowerPartQuests';
 
 const Question2= () => {
 
- 
+    const pageNb = 2;
+
 
     
 
@@ -18,14 +19,16 @@ const Question2= () => {
     <View style={styles.container}>
         
         <UpperPartQuests 
-            text="Question2"
+            text="Question 2"
             type="Title1"
+            pageNb={pageNb}
         /> 
 
         <LowerPartQuests 
             question="What do you prefer indoor or outdoor?"
             type="Title2"
-            questpage="Question3"
+            nextpage="Question3"
+            pageNb={pageNb}
         /> 
 
 
