@@ -2,15 +2,22 @@ import { View, Text, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import Slider from '@react-native-community/slider';
 import CustomText from '../CustomText'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateQuestion1, updateQuestion10, updateQuestion11, updateQuestion12, updateQuestion13, updateQuestion14, updateQuestion15, updateQuestion16, updateQuestion2, updateQuestion3, updateQuestion4, updateQuestion5, updateQuestion6, updateQuestion7, updateQuestion8, updateQuestion9 } from '../../../redux/slices/questionSlice';
+import { updatePageNb } from '../../../redux/slices/userSlice';
+import { RootState } from '../../../redux/store';
 //https://www.npmjs.com/package/@react-native-community/slider
 
-const index = (pageNb) => {
+const index = () => {
+
+
+   
 
   const[chosenRange,setChosenRange] = useState(1);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
+  const pageNb = useSelector((state:RootState)=>state.user.pageNb);
+
 
   const handleRangeChange = (chosenRange) => {
     switch (pageNb) {

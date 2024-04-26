@@ -3,7 +3,7 @@ import React from 'react'
 import CustomText from '../../atoms/CustomText'
 import CustomHeader from '../../atoms/CustomHeader'
 
-const index = ({text, type, pageNb}) => {
+const index = ({text, type}) => {
   return (
     <View style={styles.FirstPart}>
 
@@ -13,8 +13,7 @@ const index = ({text, type, pageNb}) => {
         text={text}
         type={type} />
 
-    <CustomHeader
-      pageNb={pageNb} />        
+    <CustomHeader />        
     
 </View>
   )

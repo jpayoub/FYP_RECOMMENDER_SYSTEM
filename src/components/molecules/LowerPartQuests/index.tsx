@@ -8,7 +8,7 @@ import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom'
 import CustomProgressBar from '../../atoms/CustomProgressBar'
 
 
-const index = ({question, type, nextpage, pageNb}) => {
+const index = ({question, type, nextpage}) => {
     const navigation = useNavigation();
 
     const navigatetoQues = () => {
@@ -23,15 +23,12 @@ const index = ({question, type, nextpage, pageNb}) => {
                 text={question}
                 type={type}
             />
-            <CustomRangeSlider
-                pageNb={pageNb} />
+            <CustomRangeSlider />
             <CustomButton
                 onPress={navigatetoQues}
                 text="Next"
                 type='NEXT' />
 
-            <CustomProgressBar
-            progress={0.5} />
                    
         </View>
         </SlideUpFromBottom>

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Alert } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomText from '../components/atoms/CustomText';
 import CustomRangeSlider from '../components/atoms/CustomRangeSlider';
 import CustomButton from '../components/atoms/CustomButton';
@@ -9,11 +9,21 @@ import UpperPartQuests from '../components/molecules/UpperPartQests';
 import LowerPartQuests from '../components/molecules/LowerPartQuests';
 import { useDispatch } from 'react-redux';
 import { updateQuestion1 } from '../redux/slices/questionSlice';
+import { updatePageNb } from '../redux/slices/userSlice';
 
 const Question1 = () => {
 
+    const pageNb = 1;
+    const dispatch = useDispatch();
 
- const pageNb = 1;
+    useEffect(() => {
+        dispatch(updatePageNb(pageNb));
+     });
+
+    
+
+
+
 
     
 
@@ -22,16 +32,12 @@ const Question1 = () => {
         
         <UpperPartQuests 
             text="Question1"
-            type="Title1"
-            pageNb={pageNb}
-        /> 
+            type="Title1"        /> 
 
         <LowerPartQuests 
             question="What do you prefer indoor or outdoor?"
             type="Title2"
-            nextpage="Question2"
-            pageNb={pageNb}
-        /> 
+            nextpage="Question2" /> 
 
 
         

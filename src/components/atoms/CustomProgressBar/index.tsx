@@ -1,12 +1,19 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react';
 import * as Progress from 'react-native-progress';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
-const index = ({progress}) => {
+
+const index = ({}) => {
+
+  const pageNb = useSelector((state:RootState)=>state.user.pageNb);
+
+
   return (
     <View>
       <Progress.Bar style={styles.progressbar}
-      progress={progress} 
+      progress={pageNb/17} 
       width={412}/>
     </View>
   )

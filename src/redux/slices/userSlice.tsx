@@ -2,11 +2,11 @@ import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
 
 interface userState {
-    progressValue: number,
+    pageNb: number,
     isLoggedIn: boolean
 }
 const initialState: userState={
-    progressValue:0,
+    pageNb:0,
     isLoggedIn:false
 }
 
@@ -15,16 +15,14 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers:{
-        increment: state=>{
-            state.progressValue +=1; 
+        updatePageNb: (state, action: PayloadAction<number>) => {
+            state.pageNb = action.payload;
         },
-        decrement: state =>{
-            state.progressValue -=1;
-        },
+        
         login: state=>{
             state.isLoggedIn = true
         }
     }
 })
-export const {increment,decrement,login} = userSlice.actions;
+export const {updatePageNb,login} = userSlice.actions;
 export default userSlice.reducer;
