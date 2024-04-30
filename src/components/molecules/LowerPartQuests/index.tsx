@@ -17,7 +17,7 @@ const index = ({question, type, nextpage}) => {
     }
 
   return (
-    <SlideUpFromBottom>
+    <SlideUpFromBottom children={undefined}>
     <View style={styles.SecondPart}>
             <CustomText 
                 text={question}

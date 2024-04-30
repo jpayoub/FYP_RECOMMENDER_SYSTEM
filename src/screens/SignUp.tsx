@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet, Alert } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Alert, useWindowDimensions, Image } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from '../components/atoms/CustomInput';
 import CustomButton from '../components/atoms/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import logo from '../assets/images/recomai.png';
 
 
 const SignUp = () => {
-
+  const {height} = useWindowDimensions();
     const navigation = useNavigation();
 
 
@@ -30,6 +31,9 @@ const SignUp = () => {
   return (
     <View style={Styles.container}>
 
+<Image source={logo} style={[Styles.logo, {height: height*0.2}]} />
+
+
       <Text style={Styles.title} >Create an account</Text> 
 
       <CustomInput 
@@ -38,6 +42,7 @@ const SignUp = () => {
         setValue={setUserName} 
         secureTextEntry={false} 
       />
+      
 
       <CustomInput 
         placeholder="Email"
@@ -81,8 +86,7 @@ const SignUp = () => {
         <Text 
           style={Styles.link} 
           onPress={navigateToSignIn} 
-          > 
-          LogIn </Text> 
+          > LogIn </Text> 
       </Text>
 
     </View>
@@ -91,6 +95,7 @@ const SignUp = () => {
 
 const Styles = StyleSheet.create({
     container: {
+      alignItems: 'center',
         padding: 15,
     },
     title: {
@@ -110,6 +115,13 @@ const Styles = StyleSheet.create({
     },
     logintext: {
       textAlign: 'center',
+    },
+    logo: {
+      width: '70%',
+      maxWidth: 300,
+      maxHeight: 200,
+      marginBottom: 5,
+      borderRadius: 20,
     }
 });
 

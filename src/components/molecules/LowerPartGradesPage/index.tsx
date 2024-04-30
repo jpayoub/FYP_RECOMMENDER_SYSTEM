@@ -10,23 +10,24 @@ import CustomGradeTable from '../../atoms/CustomGradeTable'
 
 
 const index = ({nextpage}) => {
-    const navigation = useNavigation();
 
-    const navigatetoQues = () => {
+    
 
-        navigation.navigate(nextpage, {});    
-    }
 
   return (
-    
-    <SlideUpFromBottom>
+    <ScrollView style={styles.scrollview}>
+    <SlideUpFromBottom children={undefined}>
     <View style={styles.SecondPart}>
         
-            <CustomGradeTable />
-        
+            <CustomGradeTable
+            nextpage={nextpage} />
+
+            
+            
                    
         </View>
         </SlideUpFromBottom>
+        </ScrollView>
   );
 };
 
@@ -48,4 +49,7 @@ const styles = StyleSheet.create({
     question: {
         padding: 50,
     },
+    scrollview: {
+        width: '100%',
+    }
 });

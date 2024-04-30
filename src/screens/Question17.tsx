@@ -9,6 +9,7 @@ import UpperPartQuests from '../components/molecules/UpperPartQests';
 import LowerPartQuests from '../components/molecules/LowerPartQuests';
 import { useDispatch } from 'react-redux';
 import { updatePageNb } from '../redux/slices/userSlice';
+import CustomItem from '../components/atoms/CustomItem';
 
 const Question17= () => {
 
@@ -33,6 +34,8 @@ const Question17= () => {
             question="What do you prefer indoor or outdoor?"
             type="Title2"
             nextpage="Question18" /> 
+
+            
 
 
         

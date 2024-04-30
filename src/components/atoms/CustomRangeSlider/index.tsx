@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateQuestion1, updateQuestion10, updateQuestion11, updateQuestion12, updateQuestion13, updateQuestion14, updateQuestion15, updateQuestion16, updateQuestion2, updateQuestion3, updateQuestion4, updateQuestion5, updateQuestion6, updateQuestion7, updateQuestion8, updateQuestion9 } from '../../../redux/slices/questionSlice';
 import { updatePageNb } from '../../../redux/slices/userSlice';
 import { RootState } from '../../../redux/store';
+
 //https://www.npmjs.com/package/@react-native-community/slider
+
+
 
 const index = () => {
 
@@ -17,9 +20,9 @@ const index = () => {
 
   const dispatch = useDispatch(); 
   const pageNb = useSelector((state:RootState)=>state.user.pageNb);
+const questttt1 = useSelector((state:RootState)=>state.questions.question1);
 
-
-  const handleRangeChange = (chosenRange) => {
+  const handleRangeChange = (chosenRange: number) => {
     switch (pageNb) {
       case 1: 
       dispatch(updateQuestion1(chosenRange));
@@ -69,6 +72,9 @@ const index = () => {
       case 16: 
       dispatch(updateQuestion16(chosenRange));
       break;
+      // case 17: 
+      // dispatch(updateQuestion17(chosenRange));
+      // break;
       default: chosenRange = 1;
       break;
     }
@@ -95,6 +101,9 @@ const index = () => {
       maximumTrackTintColor="blue"
       step={1}
       />
+
+
+
     </View>
   )
 }

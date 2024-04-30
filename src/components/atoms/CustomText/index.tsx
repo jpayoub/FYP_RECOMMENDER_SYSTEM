@@ -30,6 +30,14 @@ const styles = StyleSheet.create({
         lineHeight: 35,
 
     },
+    text_grades:{
+      fontSize: 20,
+        fontWeight: 'bold',
+        color: 'grey',
+        marginBottom: 30,
+        textAlign: 'center',
+        lineHeight: 35,
+    }
 
     
 });

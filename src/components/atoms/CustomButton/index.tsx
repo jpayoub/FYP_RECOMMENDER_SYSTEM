@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         padding: 12, 
         paddingHorizontal:50,
         marginVertical: 5,
-
         alignItems: 'center',
         borderRadius: 12,
     },
@@ -54,4 +53,12 @@ const styles = StyleSheet.create({
     text_TERTIARY: {
         color: 'blue',
     },
+    container_AIRECOM: {
+        borderColor: 'white',
+        borderWidth: 1,
+        fontSize:20,
+    },
+    text_AIRECOM: {
+        color: 'white',
+    }
 });

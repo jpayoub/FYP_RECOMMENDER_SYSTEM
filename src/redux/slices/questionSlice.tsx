@@ -1,6 +1,5 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
-
 interface questionState {
     question1: number,
     question2: number,
@@ -18,15 +17,16 @@ interface questionState {
     question14: number,
     question15: number,
     question16:number,
-    maths: string,
-    physics: string,
-    chemistry: string,
-    biology: string,
-    economics: string,
+    question17:number,
+    Maths: string,
+    Physics: string,
+    Chemistry: string,
+    Biology: string,
+    Economics: string,
     Sociology: string,
     History: string,
-    geography: string,
-    literature: string,
+    Geography: string,
+    Literature: string,
 
 
 
@@ -48,15 +48,16 @@ const initialState: questionState={
     question14: 1,
     question15: 1,
     question16:1,
-    maths: '10',
-    physics: '10',
-    chemistry: '10',
-    biology: '10',
-    economics: '10',
+    question17:1,
+    Maths: '10',
+    Physics: '10',
+    Chemistry: '10',
+    Biology: '10',
+    Economics: '10',
     Sociology: '10',
     History: '10',
-    geography: '10',
-    literature: '10',
+    Geography: '10',
+    Literature: '10',
 }
 
 
@@ -112,20 +113,23 @@ export const questionSlice = createSlice ({
         updateQuestion16: (state, action: PayloadAction<number>) => {
             state.question16 = action.payload;
         },
+        updateQuestion17: (state, action: PayloadAction<number>) => {
+            state.question17 = action.payload;
+        },
         updateMaths: (state, action: PayloadAction<string>) => {
-            state.maths = action.payload;
+            state.Maths = action.payload;
         },
         updatePhysics: (state, action: PayloadAction<string>) => {
-            state.physics = action.payload;
+            state.Physics = action.payload;
         },
         updateChemistry: (state, action: PayloadAction<string>) => {
-            state.chemistry = action.payload;
+            state.Chemistry = action.payload;
         },
         updateBiology: (state, action: PayloadAction<string>) => {
-            state.biology = action.payload;
+            state.Biology = action.payload;
         },
         updateEconomics: (state, action: PayloadAction<string>) => {
-            state.economics = action.payload;
+            state.Economics = action.payload;
         },
         updateSociology: (state, action: PayloadAction<string>) => {
             state.Sociology = action.payload;
@@ -134,13 +138,13 @@ export const questionSlice = createSlice ({
             state.History = action.payload;
         },
         updateGeography: (state, action: PayloadAction<string>) => {
-            state.geography = action.payload;
+            state.Geography = action.payload;
         },
         updateLiterature: (state, action: PayloadAction<string>) => {
-            state.literature = action.payload;
+            state.Literature = action.payload;
         },
     }
-})
+});
 
 export const {
     updateQuestion1,

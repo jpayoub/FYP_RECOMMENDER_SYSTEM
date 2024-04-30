@@ -19,7 +19,7 @@ const Question18 = () => {
     <View style={styles.container} >
         <UpperPartGradesPage text="Question 18" type="Title1" />
         <LowerPartGradesPage 
-        nextpage="Question1" /> 
+        nextpage="ShowGrades" /> 
 
        
     </View>

@@ -25,12 +25,15 @@ import userSlice from '../redux/slices/userSlice';
 import { UseSelector, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import Question18 from '../screens/Question18';
+import Home from '../screens/Home';
+import ShowGrades from '../screens/ShowGrades';
 const MainStackNavigator = createNativeStackNavigator();
 const AuthenticationStackNavigation = createNativeStackNavigator();
 const AuthenticatedStackNavigator = createNativeStackNavigator();
 const AuthenticatedNavigator=()=>{
   return(
     <AuthenticatedStackNavigator.Navigator >
+    <AuthenticatedStackNavigator.Screen name="Home" component={Home} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Question1" component={Question1} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Question2" component={Question2} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Question3" component={Question3} options={{headerShown:false}}/>
@@ -49,6 +52,8 @@ const AuthenticatedNavigator=()=>{
     <AuthenticatedStackNavigator.Screen name="Question16" component={Question16} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Question17" component={Question17} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Question18" component={Question18} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="ShowGrades" component={ShowGrades} options={{headerShown:false}}/>
+
 
     </AuthenticatedStackNavigator.Navigator>
   )

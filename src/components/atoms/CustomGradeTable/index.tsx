@@ -14,6 +14,8 @@ import {
   updateSociology 
 } from '../../../redux/slices/questionSlice';
 import CustomButton from '../CustomButton';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const subjects = [
   'Maths',
@@ -27,15 +29,27 @@ const subjects = [
   'Literature',
 ];
 
-const index = () => {
+const index = ({nextpage}) => {
+
+  const navigation = useNavigation();
+
+  const navigatetoGrades = () => {
+
+      navigation.navigate(nextpage, {});    
+  }
+  
+
+
   const dispatch = useDispatch();
 
   const [grades, setGrades] = useState(
     subjects.reduce((acc, subject) => ({ ...acc, [subject]: '' }), {})
   );
 
+  const [gradesSubmitted, setGradesSubmitted] = useState(false);
+
   const handleGradeChange = (subject: string, grade: string) => {
-    setGrades((prevGrades) => ({
+    setGrades((prevGrades: any) => ({
       ...prevGrades,
       [subject]: grade,
     }));
@@ -75,11 +89,15 @@ const index = () => {
           break;
       }
     });
+    setGradesSubmitted(true);
   };
+
+  
 
   return (
     <View style={styles.container}>
       {subjects.map((subject) => (
+        
         <View key={subject} style={styles.row}>
           <Text style={styles.cell}>{subject}</Text>
           <TextInput
@@ -87,10 +105,20 @@ const index = () => {
             value={grades[subject]}
             onChangeText={(grade) => handleGradeChange(subject, grade)}
             keyboardType='numeric'
+            placeholder='Enter your grade'
           />
         </View>
       ))}
-      <CustomButton onPress={handleSubmit} text={"Submit Grades"} type='PRIMARY' />
+      <CustomButton onPress={handleSubmit} text={"SUBMIT GRADES"} type='TERTIARY' />
+
+      {gradesSubmitted && (
+        <CustomButton 
+          text="Next"
+          type='NEXT'
+          onPress={navigatetoGrades} />
+      )}
+
+
     </View>
   );
 };
@@ -100,6 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
     
   },
   row: {

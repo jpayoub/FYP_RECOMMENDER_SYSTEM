@@ -5,7 +5,7 @@ import CustomButton from '../components/atoms/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/userSlice';
-import logo from '../assets/images/jpayoub.jpg';
+import logo from '../assets/images/recomai.png';
 const SignIn = () => {
 
   const {height} = useWindowDimensions();

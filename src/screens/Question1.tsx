@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Alert } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import CustomText from '../components/atoms/CustomText';
 import CustomRangeSlider from '../components/atoms/CustomRangeSlider';
 import CustomButton from '../components/atoms/CustomButton';
