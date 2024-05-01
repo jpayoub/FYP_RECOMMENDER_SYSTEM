@@ -6,6 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/userSlice';
 import logo from '../assets/images/recomai.png';
+import {Formik, FormikHelpers, FormikValues} from 'formik';
+import * as Yup from 'yup';
+
+
+
 const SignIn = () => {
 
   const {height} = useWindowDimensions();
@@ -28,29 +33,72 @@ const SignIn = () => {
       
         //navigation.navigate("Question1");
     };  
+
+
+    const signInSchema = Yup.object().shape({
+      email: Yup.string()
+      .email('Please enter valid email')
+      .required('Email is required')
+      .label('Email'),
+      Password: Yup.string()
+      .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
+      .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
+      .matches(/\d/, 'Password must have a number')
+      .min(8, ({min}) => `Password must be at least ${min} characters`)
+      .required('Password is required')
+      .label('Password'),
+      });
+
     
   return (
+
+    <Formik 
+      initialValues={{ email: '', Password:'' }} 
+      onSubmit={values => console.log(values)} 
+      validationSchema={signInSchema}>
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+          isValid,
+        })=> (
+          <>
     <View style={Styles.container}>
       
-        <Image source={logo} style={[Styles.logo, {height: height*0.2}]} />
-      
+    <View style={Styles.logoContainer}>
+<Image source={logo} style={[Styles.logo, {height: height*0.2}]} />
+</View>     
+
+<Text style={Styles.title} >Log In</Text> 
+
       <CustomInput 
       placeholder="Email" 
-      value={email} 
-      setValue={setEmail} 
+      value={values.email} 
+      setValue={handleChange('email')} 
       secureTextEntry={false} 
       />
+       {errors.email && (
+        <Text style={Styles.errorText}> {errors.email} </Text>
+      )}
 
       <CustomInput 
       placeholder="Password" 
-      value={password} 
-      setValue={setPassword} 
+      value={values.password} 
+      setValue={handleChange('password')} 
       secureTextEntry={true}
       />
+      {errors.email && (
+        <Text style={Styles.errorText}> {errors.password} </Text>
+      )}
 
       <CustomButton 
-      text="Log In" 
-      onPress={navigateToQuest1} 
+      text="Log In"
+      type={(values.email && values.password && isValid) ? "PRIMARY" : "DISABLED"} 
+      onPress={(values.email && values.password && isValid)? navigateToQuest1 : null} 
+      
       />
 
       <CustomButton 
@@ -69,13 +117,22 @@ const SignIn = () => {
 
 
     </View>
+    </>
+      )}
+    </Formik>
   )
 }
 
 const Styles = StyleSheet.create({
     container: {
-      alignItems: 'center',
         padding: 15,
+    },
+    title: {
+      fontSize: 30,
+      fontWeight: 'bold',
+      color: 'blue',
+      margin: 10,
+      textAlign: 'center',
     },
     link: {
       color: 'blue',
@@ -89,7 +146,15 @@ const Styles = StyleSheet.create({
       maxHeight: 200,
       marginBottom: 35,
       borderRadius: 20,
-    }
+    },
+    errorText: {
+      fontSize: 12,
+      color: 'red',
+    },
+    logoContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
 })
 
 export default SignIn;

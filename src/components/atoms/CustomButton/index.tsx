@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 
-const index = ({onPress, text, type = "PRIMARY"}) => {
+const index = ({onPress = null, text, type = "DISABLED"}) => {
   return (
     <Pressable onPress={onPress} style={[styles.container, styles[`container_${type}`]]}>
     <Text style={styles[`text_${type}`]}> {text} </Text>
@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         alignItems: 'center',
         borderRadius: 12,
+        marginTop: 20,
+    },
+
+    container_DISABLED: {
+        backgroundColor: '#A5C9CA',
     },
 
     container_PRIMARY: {
@@ -42,7 +47,11 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
     },
-
+    text_DISABLED: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 20,
+    },
 
     text_PRIMARY: {
         fontWeight: 'bold',
