@@ -64,11 +64,8 @@ const SignUp = () => {
       validationSchema={signUpSchema}>
         {({
           handleChange,
-          handleBlur,
-          handleSubmit,
           values,
           errors,
-          touched,
           isValid,
         })=> (
           <>
@@ -116,9 +113,11 @@ const SignUp = () => {
 
       <CustomButton 
       text="Register" 
-      type={(values.userName && values.email && values.password && values.confirmPassword && isValid)? "PRIMARY" : "DISABLED"}
-      onPress={(values.userName && values.email && values.password && values.confirmPassword && isValid)? navigateToQuest1: null} 
+      type={(values.userName && values.email && values.Password && values.confirmPassword && isValid) ? "PRIMARY" : "DISABLED"}
+      onPress={(values.userName && values.email && values.Password && values.confirmPassword && isValid) ? navigateToQuest1: null} 
       />
+
+
       </>
       )}
     </Formik>

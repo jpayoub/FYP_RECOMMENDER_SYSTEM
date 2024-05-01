@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, Alert, useWindowDimensions } from 'react-native'
+import { View, Text, StyleSheet, Image, Alert, useWindowDimensions, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from '../components/atoms/CustomInput';
 import CustomButton from '../components/atoms/CustomButton';
@@ -52,6 +52,7 @@ const SignIn = () => {
     
   return (
 
+    <ScrollView>
     <Formik 
       initialValues={{ email: '', Password:'' }} 
       onSubmit={values => console.log(values)} 
@@ -86,18 +87,18 @@ const SignIn = () => {
 
       <CustomInput 
       placeholder="Password" 
-      value={values.password} 
-      setValue={handleChange('password')} 
+      value={values.Password} 
+      setValue={handleChange('Password')} 
       secureTextEntry={true}
       />
       {errors.email && (
-        <Text style={Styles.errorText}> {errors.password} </Text>
+        <Text style={Styles.errorText}> {errors.Password} </Text>
       )}
 
       <CustomButton 
       text="Log In"
-      type={(values.email && values.password && isValid) ? "PRIMARY" : "DISABLED"} 
-      onPress={(values.email && values.password && isValid)? navigateToQuest1 : null} 
+      type={(values.email && values.Password && isValid) ? "PRIMARY" : "DISABLED"} 
+      onPress={(values.email && values.Password && isValid)? navigateToQuest1 : null} 
       
       />
 
@@ -117,9 +118,13 @@ const SignIn = () => {
 
 
     </View>
+{console.log('email:', values.email)}
+{console.log('password:', values.Password)}
+{console.log('isValid:', isValid)}
     </>
       )}
     </Formik>
+    </ScrollView>
   )
 }
 
