@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
 import Question1 from '../screens/Question1';
@@ -27,9 +28,11 @@ import { RootState } from '../redux/store';
 import Question18 from '../screens/Question18';
 import Home from '../screens/Home';
 import ShowGrades from '../screens/ShowGrades';
+import Result from '../screens/Result';
 const MainStackNavigator = createNativeStackNavigator();
 const AuthenticationStackNavigation = createNativeStackNavigator();
 const AuthenticatedStackNavigator = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 const AuthenticatedNavigator=()=>{
   return(
     <AuthenticatedStackNavigator.Navigator >
@@ -53,9 +56,19 @@ const AuthenticatedNavigator=()=>{
     <AuthenticatedStackNavigator.Screen name="Question17" component={Question17} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Question18" component={Question18} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="ShowGrades" component={ShowGrades} options={{headerShown:false}}/>
+    <AuthenticatedStackNavigator.Screen name="Result" component={Result} options={{headerShown:false}}/>
 
 
     </AuthenticatedStackNavigator.Navigator>
+  )
+}
+
+const DrawerNavigation = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="ShowGrades" component={ShowGrades}/>
+      <Drawer.Screen name="Result" component={Result} />
+    </Drawer.Navigator>
   )
 }
 
@@ -64,12 +77,13 @@ const AuthenticationNavigator = () => {
    <AuthenticationStackNavigation.Navigator> 
     <AuthenticationStackNavigation.Screen name="SignIn" component={SignIn} options={{headerShown:false}} />
     <AuthenticationStackNavigation.Screen name="SignUp" component={SignUp} options={{headerShown:false}} />
-
-
-
    </AuthenticationStackNavigation.Navigator>
   )
 }
+
+
+
+
 const MainNavigator = () =>{
   const isLogged = useSelector((state:RootState)=>state.user.isLoggedIn);
   return isLogged?<AuthenticatedNavigator/>:<AuthenticationNavigator/>;

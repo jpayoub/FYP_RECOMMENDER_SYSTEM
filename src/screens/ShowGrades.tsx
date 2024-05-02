@@ -5,8 +5,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import CustomButton from '../components/atoms/CustomButton';
 import CustomItemDetails from '../components/atoms/CustomItemDetails';
+import { useNavigation } from '@react-navigation/native';
 
 const ShowGrades = () => {
+
+  const navigation = useNavigation();
 
     const quest1 = useSelector((state:RootState)=>state.questions.question1);
     const quest2 = useSelector((state:RootState)=>state.questions.question2);
@@ -36,7 +39,7 @@ const ShowGrades = () => {
     const literature = useSelector((state:RootState)=>state.questions.Literature);
 
     const airecommender = () => {
-        Alert.alert("Waiting");
+        navigation.navigate("Result");
     }
 
   return (

@@ -91,7 +91,7 @@ const SignIn = () => {
       setValue={handleChange('Password')} 
       secureTextEntry={true}
       />
-      {errors.email && (
+      {errors.Password && (
         <Text style={Styles.errorText}> {errors.Password} </Text>
       )}
 
@@ -104,8 +104,8 @@ const SignIn = () => {
 
       <CustomButton 
       text="Forgot Password?" 
-      onPress={()=>Alert.alert("Coming Soon...")} 
-      type="TERTIARY"
+      onPress={values.email ? ()=>Alert.alert("Coming Soon...") : null} 
+      type={values.email && isValid ? "TERTIARY" : "DISABLED"}
       />
 
       <Text style={Styles.logintext}>Don't have an account? 
@@ -118,9 +118,7 @@ const SignIn = () => {
 
 
     </View>
-{console.log('email:', values.email)}
-{console.log('password:', values.Password)}
-{console.log('isValid:', isValid)}
+
     </>
       )}
     </Formik>
