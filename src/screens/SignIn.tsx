@@ -41,8 +41,8 @@ const SignIn = () => {
       .required('Email is required')
       .label('Email'),
       Password: Yup.string()
-      .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
-      .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
+      .matches(/\w*[a-z]\w*/, 'Password must contain a lowercase letter')
+      .matches(/\w*[A-Z]\w*/, 'Password must contain an uppercase letter')
       .matches(/\d/, 'Password must have a number')
       .min(8, ({min}) => `Password must be at least ${min} characters`)
       .required('Password is required')
