@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import logo from '../../../assets/images/jpayoub.jpg';
 
 const index = ({ item, onPress }) => {
+  
+
+
     return (
       <TouchableOpacity onPress={onPress} style={styles.container}>
-        <Image source={item.image} style={styles.image} />
+        <Image source={{uri: item.image_url }} style={styles.image} />
         <View style={styles.textContainer}>
           <Text style={styles.title}>{item.title}</Text>
         </View>
       </TouchableOpacity>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
