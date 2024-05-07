@@ -3,8 +3,9 @@ import MainNavigator from './src/navigation/MainNavigatior'
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import store from './src/redux/store';
+import {store, persistor} from './src/redux/store';
 import RNBootSplash from 'react-native-bootsplash';
+import { PersistGate } from "redux-persist/integration/react";
 
 
 const App = () => {
