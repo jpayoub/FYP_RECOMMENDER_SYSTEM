@@ -1,9 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image, ShadowPropTypesIOS } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import { logout } from '../redux/slices/userSlice';
 const Home = () => {
     const navigation = useNavigation();
+    const dispatch: AppDispatch = useDispatch();
+
 
     const navigateToTest = () => {
         navigation.navigate("Question1");
@@ -31,7 +35,7 @@ const Home = () => {
             <Image source={require('../assets/images/profile.jpg')} style={styles.image} />
                 <Text style={styles.text}>PROFILE</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToProfile} style={styles.button}>
+            <TouchableOpacity onPress={()=>dispatch(logout())} style={styles.button}>
             <Image source={require('../assets/images/logout.png')} style={styles.image} />
                 <Text style={styles.text}>LOGOUT</Text>
             </TouchableOpacity>
