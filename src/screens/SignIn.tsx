@@ -4,17 +4,17 @@ import CustomInput from '../components/atoms/CustomInput';
 import CustomButton from '../components/atoms/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { login } from '../redux/slices/userSlice';
+import { login,LoginPayload } from '../redux/slices/userSlice';
 import logo from '../assets/images/recomai.png';
 import {Formik, FormikHelpers, FormikValues} from 'formik';
 import * as Yup from 'yup';
-
+import { AppDispatch } from '../redux/store';
 
 
 const SignIn = () => {
 
   const {height} = useWindowDimensions();
-  const dispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch();
 
     const navigation = useNavigation();
 
@@ -55,7 +55,14 @@ const SignIn = () => {
     <ScrollView>
     <Formik 
       initialValues={{ email: '', Password:'' }} 
-      onSubmit={values => console.log(values)} 
+      onSubmit={(values) =>
+        {
+          const payload: LoginPayload = {
+            email: values.email,
+            password:values.Password,
+          }
+          dispatch(login(payload))
+        } } 
       validationSchema={signInSchema}>
         {({
           handleChange,
@@ -98,7 +105,7 @@ const SignIn = () => {
       <CustomButton 
       text="Log In"
       type={(values.email && values.Password && isValid) ? "PRIMARY" : "DISABLED"} 
-      onPress={(values.email && values.Password && isValid)? navigateToQuest1 : null} 
+      onPress={(values.email && values.Password && isValid)? handleSubmit : null} 
       
       />
 
