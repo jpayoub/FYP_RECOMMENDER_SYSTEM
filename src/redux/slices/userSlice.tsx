@@ -8,6 +8,9 @@ interface UserState {
   refreshToken: string | null;
   loading: boolean;
   error: string | null;
+  posts: Post[];
+  currentPage: number;
+  loadingPosts: boolean;
 }
 export interface SignUpPayload {
   email: string;
@@ -19,6 +22,29 @@ export interface LoginPayload {
   password: string;
   tokenExpiresIn?: string;
 }
+export interface RefreshTokenPayload {
+  refreshToken: string;
+}
+
+interface Post {
+  _id: string;
+  title: string;
+  link: string;
+  // Add other properties as needed
+}
+
+interface PaginationMetadata {
+  currentPage: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
+
+interface PostsResponse {
+  results: Post[];
+  pagination: PaginationMetadata;
+}
+
 const initialState: UserState = {
   pageNb: 1, // Default page number can be set here
   isLoggedIn: false,
@@ -26,6 +52,9 @@ const initialState: UserState = {
   refreshToken: null,
   loading: false,
   error: null,
+  posts: [],
+  currentPage: 1,
+  loadingPosts: false,
   
 };
 
@@ -49,6 +78,7 @@ export const userSlice = createSlice({
     updateAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
     },
+    
   },
   extraReducers: (builder) => {
     builder
@@ -81,6 +111,27 @@ export const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       });
+      builder.addCase(refreshToken.fulfilled, (state, action) => {
+        // Update the state with the new access token
+        state.accessToken = action.payload;
+      });
+      builder.addCase(refreshToken.rejected, (state, action) => {
+        // Handle the rejection if needed
+        logout()
+      })
+      .addCase(fetchPosts.pending, (state) => {
+        state.loadingPosts = true;
+      })
+      // Add case for fulfilled action
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.loadingPosts = false;
+        state.posts = action.payload.results;
+        state.currentPage = action.payload.currentPage;
+      })
+      // Add case for rejected action
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.loadingPosts = false;
+      });
       
   },
 });
@@ -103,6 +154,32 @@ export const login = createAsyncThunk(
     }
   }
 );
+export const fetchPosts = createAsyncThunk(
+  "user/fetchPosts",
+  async ({ page = 1, pageSize = 10 }: { page?: number; pageSize?: number }, { getState }) => {
+    try {
+      const { accessToken } = getState().user; // Get accessToken from Redux state
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+      const response = await axios.get<PostsResponse>(
+        `https://backend-practice.euriskomobility.me/posts?page=${page}&pageSize=${pageSize}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Use accessToken in the Authorization header
+          },
+        }
+      );
+      // Update the current page in the state
+      const { currentPage } = getState().user;
+      console.log(response.data)
+      return { ...response.data, currentPage };
+    } catch (error) {
+      throw new Error("Error fetching posts");
+    }
+  }
+);
+
 
 
 // Async action to handle signup
@@ -114,7 +191,7 @@ export const signup = createAsyncThunk(
       const response = await axios.post("https://backend-practice.euriskomobility.me/signup", {
         email,
         password,
-        token_expires_in: tokenExpiresIn || "15m", // Default to 15 minutes if not provided
+        token_expires_in: tokenExpiresIn || "60m", // Default to 15 minutes if not provided
       });
       console.log(response.data);
       return response.data;
@@ -125,24 +202,28 @@ export const signup = createAsyncThunk(
   }
 );
 
-// Async action to handle refreshing access token
-export const refreshToken = () => async (dispatch: any, getState: any) => {
-  try {
-    const { refreshToken } = getState().user;
-    if (!refreshToken) {
-      throw new Error("No refresh token available");
+export const refreshToken = createAsyncThunk(
+  "user/refreshToken",
+  async (payload: RefreshTokenPayload) => {
+    try {
+      const response = await axios.post(
+        "https://backend-practice.euriskomobility.me/refresh-token",
+        {
+          refreshToken: payload.refreshToken,
+          token_expires_in: "60m",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      // Handle any errors
+      throw new Error("Failed to refresh token");
     }
-    const response = await axios.post(
-      "https://backend-practice.euriskomobility.me/refresh-token",
-      {
-        refreshToken,
-      }
-    );
-    const newAccessToken = response.data.accessToken;
-    dispatch(updateAccessToken(newAccessToken));
-  } catch (error) {
-    console.error("Error refreshing token:", error);
   }
-};
+);
 
 export default userSlice.reducer;

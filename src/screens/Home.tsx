@@ -1,13 +1,19 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, ShadowPropTypesIOS } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ShadowPropTypesIOS, } from 'react-native';
 import React from 'react';
+import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
 import { logout } from '../redux/slices/userSlice';
+import { fetchPosts } from '../redux/slices/userSlice';
 const Home = () => {
     const navigation = useNavigation();
     const dispatch: AppDispatch = useDispatch();
-
+    useEffect(() => {
+       
+            dispatch(fetchPosts(1));
+        
+    }, [dispatch]);
 
     const navigateToTest = () => {
         navigation.navigate("Question1");
