@@ -9,9 +9,10 @@ import logo from '../assets/images/recomai.png';
 import {Formik, FormikHelpers, FormikValues} from 'formik';
 import * as Yup from 'yup';
 import { AppDispatch } from '../redux/store';
-
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 const SignIn = () => {
+  const error = useSelector((state: RootState) => state.user.error);
 
   const {height} = useWindowDimensions();
   const dispatch: AppDispatch = useDispatch();
@@ -81,7 +82,7 @@ const SignIn = () => {
 </View>     
 
 <Text style={Styles.title} >Log In</Text> 
-
+{error && <Text style={Styles.errorText}>{error}</Text>}
       <CustomInput 
       placeholder="Email" 
       value={values.email} 
@@ -165,6 +166,7 @@ const Styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+
 })
 
 export default SignIn;
