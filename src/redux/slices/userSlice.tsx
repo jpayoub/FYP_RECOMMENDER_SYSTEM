@@ -125,7 +125,7 @@ export const userSlice = createSlice({
       // Add case for fulfilled action
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.loadingPosts = false;
-        state.posts = action.payload.results;
+        state.posts = [...state.posts, ...action.payload.results];
         state.currentPage = action.payload.currentPage;
       })
       // Add case for rejected action

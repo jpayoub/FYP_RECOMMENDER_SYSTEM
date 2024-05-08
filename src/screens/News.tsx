@@ -14,14 +14,12 @@ const News = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMorePosts, setHasMorePosts] = useState(true);
 
-  useEffect(() => {
-    dispatch(fetchPosts({ page: currentPage })); // Fetch posts on component mount
-  }, [dispatch, currentPage]); // Dependency for fetching on page change (optional)
 
   const handleLoadMore = () => {
     if (hasMorePosts && !loadingPosts && currentPage <= 11) {
       setCurrentPage(currentPage + 1);
       dispatch(fetchPosts({ page: currentPage + 1 }));
+      console.log("loadmore is running")
     }
   };
   const handleItemPress = (item) => {

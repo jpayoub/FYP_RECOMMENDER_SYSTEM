@@ -8,7 +8,11 @@ const index = ({ item, onPress }) => {
 
     return (
       <TouchableOpacity onPress={onPress} style={styles.container}>
-        <Image source={{uri: item.image_url }} style={styles.image} />
+        {item.image_url? (
+          <Image source={{uri: item.image_url }} style={styles.image} />
+        ) : (
+          <View style={styles.image}/>
+        )}
         <View style={styles.textContainer}>
           <Text style={styles.title}>{item.title}</Text>
         </View>
