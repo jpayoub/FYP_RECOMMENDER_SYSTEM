@@ -24,6 +24,7 @@ const News = () => {
   };
   const handleItemPress = (item) => {
       if(item){
+        console.log(item)
         navigation.navigate('PostDetails', { postData: item }); // Navigate with data
       } else {
         console.error('////////////////////////////////////////');
@@ -32,7 +33,7 @@ const News = () => {
   };
 
   const renderItem = ({ item }) => (
-    <CustomItem item={item} onPress={handleItemPress} />
+    <CustomItem item={item} onPress={()=>handleItemPress(item)} />
   );
 
   const renderEmptyList = () => (

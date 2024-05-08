@@ -12,12 +12,11 @@ const PostDetails = ({ route }) => {
     );
   }
 
-  const { imageUrl, title, description, videoUrl, linkUrl } = postData;
-  console.log(postData, "hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+  const { image_url, title, description, videoUrl, linkUrl } = postData;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
+      <Image source={{ uri: image_url }} style={styles.image} />
       <Text style={styles.description}>{description}</Text>
       <TouchableOpacity onPress={() => console.log('Video clicked')}>
         <Text style={styles.videoLink}>Watch Video</Text>
