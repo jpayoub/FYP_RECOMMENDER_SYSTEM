@@ -1,10 +1,9 @@
-import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native'
-import React from 'react'
-import CustomText from '../components/atoms/CustomText'
+import { View, ScrollView, StyleSheet } from 'react-native';
+import React from 'react';
+import CustomText from '../components/atoms/CustomText';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import CustomButton from '../components/atoms/CustomButton';
-import CustomItemDetails from '../components/atoms/CustomItemDetails';
 import { useNavigation } from '@react-navigation/native';
 
 const ShowGrades = () => {

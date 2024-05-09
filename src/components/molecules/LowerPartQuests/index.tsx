@@ -1,12 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import CustomText from '../../atoms/CustomText'
-import CustomRangeSlider from '../../atoms/CustomRangeSlider'
-import CustomButton from '../../atoms/CustomButton'
-import { useNavigation } from '@react-navigation/native'
-import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom'
-import CustomProgressBar from '../../atoms/CustomProgressBar'
-
+import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import CustomText from '../../atoms/CustomText';
+import CustomRangeSlider from '../../atoms/CustomRangeSlider';
+import CustomButton from '../../atoms/CustomButton';
+import { useNavigation } from '@react-navigation/native';
+import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom';
 
 const index = ({question, type, questDesc, nextpage}) => {
     const navigation = useNavigation();

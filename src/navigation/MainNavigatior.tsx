@@ -1,12 +1,10 @@
-import { View, Text } from 'react-native';
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
 import Question1 from '../screens/Question1';
 import Question2 from '../screens/Question2';
-import CustomProgressBar from '../components/atoms/CustomProgressBar';
 import Question3 from '../screens/Question3';
 import Question4 from '../screens/Question4';
 import Question5 from '../screens/Question5';
@@ -23,8 +21,6 @@ import Question15 from '../screens/Question15';
 import Question16 from '../screens/Question16';
 import Question17 from '../screens/Question17';
 import Question18 from '../screens/Question18';
-import userSlice from '../redux/slices/userSlice';
-import { UseSelector, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 
 import Home from '../screens/Home';
@@ -33,7 +29,7 @@ import Result from '../screens/Result';
 import News from '../screens/News';
 import Profile from '../screens/Profile';
 import PostDetails from '../screens/PostDetails';
-const MainStackNavigator = createNativeStackNavigator();
+import { useSelector } from 'react-redux';
 const AuthenticationStackNavigation = createNativeStackNavigator();
 const AuthenticatedStackNavigator = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -64,9 +60,6 @@ const AuthenticatedNavigator=()=>{
     <AuthenticatedStackNavigator.Screen name="News" component={News} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="PostDetails" component={PostDetails} options={{headerShown:false}}/>
-
-
-
     </AuthenticatedStackNavigator.Navigator>
   )
 }

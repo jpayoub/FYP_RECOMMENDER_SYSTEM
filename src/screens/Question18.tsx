@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
-import CustomGradeTable from '../components/atoms/CustomGradeTable';
 import LowerPartGradesPage from '../components/molecules/LowerPartGradesPage';
 import UpperPartGradesPage from '../components/molecules/UpperPartGradesPage';
 import { useDispatch } from 'react-redux';

@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet, Image, Alert, useWindowDimensions, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, StyleSheet, Image, Alert, useWindowDimensions, ScrollView } from 'react-native';
+import React, { useState } from 'react';
 import CustomInput from '../components/atoms/CustomInput';
 import CustomButton from '../components/atoms/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { login,LoginPayload } from '../redux/slices/userSlice';
 import logo from '../assets/images/recomai.png';
-import {Formik, FormikHelpers, FormikValues} from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 import { AppDispatch } from '../redux/store';
 import { useSelector } from 'react-redux';
@@ -19,21 +19,10 @@ const SignIn = () => {
 
     const navigation = useNavigation();
 
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const onSignInPressed = () => {
-        //Auth.signIn(email, password);
-    }
     const navigateToSignUp = () => {
         navigation.navigate("SignUp");
     };
-    const navigateToQuest1 = () => {
-      dispatch(login())
-      
-        //navigation.navigate("Question1");
-    };  
+   
 
 
     const signInSchema = Yup.object().shape({

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { 
   updateMaths, 
@@ -13,29 +13,19 @@ import {
   updateSociology 
 } from '../../../redux/slices/questionSlice';
 import CustomButton from '../CustomButton';
-import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import {Formik, FormikHelpers, FormikValues} from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 
-const subjects = [
-  'Maths',
-  'Physics',
-  'Chemistry',
-  'Biology',
-  'Economics',
-  'Sociology',
-  'History',
-  'Geography',
-  'Literature',
-];
+
 
 const index = ({ nextpage }) => {
 
   const navigation = useNavigation();
 
   const navigatetoGrades = () => {
-      navigation.navigate(nextpage, {});    
+      navigation.navigate(nextpage, {});  
+        
   }
 
   const dispatch = useDispatch();

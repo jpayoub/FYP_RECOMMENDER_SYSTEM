@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import LottieView from "lottie-react-native";
-import lottieAnimation from '../assets/lottie/Animation-ai.json';
 import { View, Text } from "react-native";
 import CustomButton from "../components/atoms/CustomButton";
 import { useNavigation } from "@react-navigation/native";
@@ -12,7 +11,7 @@ export default function Animation() {
     const timer = setTimeout(() => {
       // Set animationFinished to true after 3 seconds
       setAnimationFinished(true);
-    }, 2500); // 3000 milliseconds = 3 seconds
+    }, 2500); 
 
     return () => clearTimeout(timer);
   }, []); 

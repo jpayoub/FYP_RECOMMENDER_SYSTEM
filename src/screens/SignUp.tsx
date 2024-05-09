@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
   Image,
 } from 'react-native';
-import {Formik, useFormik} from 'formik';
+import {Formik} from 'formik';
 
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';

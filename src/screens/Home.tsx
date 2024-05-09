@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, ShadowPropTypesIOS, } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';

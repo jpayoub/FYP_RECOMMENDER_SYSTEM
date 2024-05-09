@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, Animated, StyleSheet } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 
-const SlideUpFromBottom = ({ children }) => {
+const index = ({ children }) => {
   const translateY = useRef(new Animated.Value(500)).current;
 
   useEffect(() => {
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SlideUpFromBottom;
+export default index;

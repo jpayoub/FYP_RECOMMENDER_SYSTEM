@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { View, FlatList, Text, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, FlatList, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts } from '../redux/slices/userSlice'; // Assuming this is the correct import path
+import { fetchPosts } from '../redux/slices/userSlice'; 
 import CustomItem from '../components/atoms/CustomItem';
 import { useNavigation } from '@react-navigation/native';
 
@@ -51,11 +51,11 @@ const News = () => {
       <FlatList
         data={posts}
         renderItem={renderItem}
-        keyExtractor={(item) => item._id} // Use a unique identifier for each item
-        ListEmptyComponent={renderEmptyList} // Display a message when the list is empty
-        onEndReached={handleLoadMore} // Trigger loadMore on reaching the end
-        onEndReachedThreshold={0.1} // Load more data when close to the end of the list
-        ListFooterComponent={() => loadingPosts && <Text>Loading more posts...</Text>} // Optional: Display loading indicator at the bottom
+        keyExtractor={(item) => item._id} 
+        ListEmptyComponent={renderEmptyList} 
+        onEndReached={handleLoadMore} 
+        onEndReachedThreshold={0.1} 
+        ListFooterComponent={() => loadingPosts && <Text>Loading more posts...</Text>} 
       />
     </View>
   );

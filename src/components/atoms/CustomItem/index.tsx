@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import logo from '../../../assets/images/jpayoub.jpg';
 
 const index = ({ item, onPress }) => {
   

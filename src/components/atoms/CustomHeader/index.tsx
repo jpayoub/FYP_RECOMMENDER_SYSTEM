@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
 import CustomProgressBar from '../CustomProgressBar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';

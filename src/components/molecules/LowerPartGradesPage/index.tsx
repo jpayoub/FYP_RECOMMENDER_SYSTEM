@@ -1,12 +1,7 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
-import CustomText from '../../atoms/CustomText'
-import CustomRangeSlider from '../../atoms/CustomRangeSlider'
-import CustomButton from '../../atoms/CustomButton'
-import { useNavigation } from '@react-navigation/native'
-import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom'
-import CustomProgressBar from '../../atoms/CustomProgressBar'
-import CustomGradeTable from '../../atoms/CustomGradeTable'
+import { View, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom';
+import CustomGradeTable from '../../atoms/CustomGradeTable';
 
 
 const index = ({nextpage}) => {

@@ -1,5 +1,5 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native'
-import React from 'react'
+import {Text, Pressable, StyleSheet } from 'react-native';
+import React from 'react';
 
 const index = ({onPress = null, text, type = "PRIMARY"}) => {
   return (
