@@ -30,8 +30,9 @@ const Question14= () => {
         /> 
 
         <LowerPartQuests 
-            question="What do you prefer indoor or outdoor?"
+            question="How passionate are you about innovation?"
             type="Title2"
+            questDesc="(Rate from 1 to 5 where 5 is very passionate)"
             nextpage="Question15" /> 
 
 

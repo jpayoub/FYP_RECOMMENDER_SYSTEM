@@ -30,8 +30,9 @@ const Question11= () => {
         /> 
 
         <LowerPartQuests 
-            question="What do you prefer indoor or outdoor?"
+            question="How important is helping others to you?"
             type="Title2"
+            questDesc="(Rate from 1 to 5 where 5 is very important)"
             nextpage="Question12" /> 
 
 

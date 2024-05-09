@@ -30,8 +30,9 @@ const Question4= () => {
         /> 
 
         <LowerPartQuests 
-            question="What do you prefer indoor or outdoor?"
+            question="Are you more creative or analytical? "
             type="Title2"
+            questDesc="(Rate from 1 to 5 where 5 is the most Analytical)"
             nextpage="Question5" /> 
 
 

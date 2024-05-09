@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: 'black',
-        marginBottom: 30,
+        marginBottom: 10,
         textAlign: 'center',
         lineHeight: 35,
 
@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         textAlign: 'center',
         lineHeight: 35,
+    },
+    text_questDesc: {
+      textAlign: 'center',
+      marginBottom: 30,
     }
 
     

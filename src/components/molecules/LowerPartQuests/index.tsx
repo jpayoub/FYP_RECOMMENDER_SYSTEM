@@ -8,7 +8,7 @@ import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom'
 import CustomProgressBar from '../../atoms/CustomProgressBar'
 
 
-const index = ({question, type, nextpage}) => {
+const index = ({question, type, questDesc, nextpage}) => {
     const navigation = useNavigation();
 
     const navigatetoQues = () => {
@@ -23,6 +23,9 @@ const index = ({question, type, nextpage}) => {
                 text={question}
                 type={type}
             />
+            <CustomText 
+                text={questDesc}
+                type="questDesc" />
             <CustomRangeSlider />
             <CustomButton
                 onPress={navigatetoQues}
@@ -46,7 +49,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         alignItems: 'center',
-        padding: 40
+        paddingHorizontal: 0,
+        paddingTop: 40,
     },
     question: {
         padding: 50,

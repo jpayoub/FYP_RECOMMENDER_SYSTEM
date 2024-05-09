@@ -30,8 +30,9 @@ const Question6= () => {
         /> 
 
         <LowerPartQuests 
-            question="What do you prefer indoor or outdoor?"
+            question="Rate your problem-solving skills:"
             type="Title2"
+            questDesc="(Rate from 1 to 5 where 5 is the highest)"
             nextpage="Question7" /> 
 
 

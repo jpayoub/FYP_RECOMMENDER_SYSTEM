@@ -35,8 +35,9 @@ const Question1 = () => {
             type="Title1"        /> 
 
         <LowerPartQuests 
-            question="What do you prefer indoor or outdoor?"
+            question="Do you prefer practical or theoretical work?"
             type="Title2"
+            questDesc="(Rate from 1 to 5 where 5 is most Practical)"
             nextpage="Question2" /> 
 
 

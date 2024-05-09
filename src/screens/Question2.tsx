@@ -29,8 +29,9 @@ const Question2= () => {
             type="Title1"        /> 
 
         <LowerPartQuests 
-            question="What do you prefer indoor or outdoor?"
+            question="Do you prefer to work alone or in a team?"
             type="Title2"
+            questDesc="(Rate from 1 to 5 where 5 is strong preference for teams)"
             nextpage="Question3" /> 
 
 

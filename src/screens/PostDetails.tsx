@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     marginVertical: 10,
+    padding: 20,
   },
   videoLink: {
     fontSize: 18,

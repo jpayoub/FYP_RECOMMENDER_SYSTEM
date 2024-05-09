@@ -31,8 +31,9 @@ const Question17= () => {
         /> 
 
         <LowerPartQuests 
-            question="What do you prefer indoor or outdoor?"
+            question="Do you prefer structured routines or spontaneous activities?"
             type="Title2"
+            questDesc="(Rate from 1 to 5 where 1 is strongly structured and 5 is strongly spontaneous)"
             nextpage="Question18" /> 
 
             
