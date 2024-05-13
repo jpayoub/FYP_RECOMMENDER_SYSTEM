@@ -1,11 +1,11 @@
-import {Text, Pressable, StyleSheet } from 'react-native';
+import {Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 
 const index = ({onPress = null, text, type = "PRIMARY"}) => {
   return (
-    <Pressable onPress={onPress} style={[styles.container, styles[`container_${type}`]]}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, styles[`container_${type}`]]}>
     <Text style={styles[`text_${type}`]}> {text} </Text>
-  </Pressable>
+  </TouchableOpacity>
   )
 }
 
