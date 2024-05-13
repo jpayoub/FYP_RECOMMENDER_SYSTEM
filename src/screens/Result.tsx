@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LottieView from "lottie-react-native";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import CustomButton from "../components/atoms/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 
@@ -33,8 +33,12 @@ export default function Animation() {
           onAnimationFinish={() => setAnimationFinished(true)} // Update state when animation finishes
         />
       ) : (
-        <View>
-          <Text>Hello result</Text>
+        <View style= {styles.container}>
+          <Text>After analyzing your responses to the psychology-related questions
+             and evaluating your academic performance, our recommendation system proposes {'\n'} 
+             <Text style={styles.major}>             Engineering </Text> {'\n'}
+             or a related field based on your interests and strengths
+          </Text>
 
           <CustomButton 
           onPress={navigatehome} 
@@ -45,3 +49,18 @@ export default function Animation() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    padding:20,
+  },
+  major: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'black',
+  }
+})
