@@ -143,7 +143,7 @@ export const login = createAsyncThunk(
   "user/login",
   async ({ email, password, tokenExpiresIn }: LoginPayload, { rejectWithValue }) => {
     try {
-      const response = await axios.post("https://backend-practice.euriskomobility.me/login", {
+      const response = await axios.post("http://192.30.129.113:5837/login", {
         email,
         password,
         token_expires_in: tokenExpiresIn || "30m",
@@ -163,7 +163,7 @@ export const fetchPosts = createAsyncThunk(
         throw new Error("Access token not found");
       }
       const response = await axios.get<PostsResponse>(
-        `https://backend-practice.euriskomobility.me/posts?page=${page}&pageSize=${pageSize}`,
+        `http://192.30.129.113:5837/posts?page=${page}&pageSize=${pageSize}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`, // Use accessToken in the Authorization header
@@ -188,7 +188,7 @@ export const signup = createAsyncThunk(
   async ({ email, password, tokenExpiresIn }: SignUpPayload, { rejectWithValue }) => {
     try {
       console.log("handling signup thunk");
-      const response = await axios.post("https://backend-practice.euriskomobility.me/signup", {
+      const response = await axios.post("http://192.30.129.113:5837/signup", {
         email,
         password,
         token_expires_in: tokenExpiresIn || "60m", // Default to 15 minutes if not provided
@@ -207,7 +207,7 @@ export const refreshToken = createAsyncThunk(
   async (payload: RefreshTokenPayload) => {
     try {
       const response = await axios.post(
-        "https://backend-practice.euriskomobility.me/refresh-token",
+        "http://192.30.129.113:5837/refresh-token",
         {
           refreshToken: payload.refreshToken,
           token_expires_in: "60m",
