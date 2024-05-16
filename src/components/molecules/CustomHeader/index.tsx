@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-import CustomProgressBar from '../CustomProgressBar';
+import CustomProgressBar from '../../atoms/CustomProgressBar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 

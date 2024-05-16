@@ -9,19 +9,13 @@ import { fetchPosts } from '../redux/slices/userSlice';
 const Home = () => {
     const navigation = useNavigation();
     const dispatch: AppDispatch = useDispatch();
-    useEffect(() => {
-       
-            dispatch(fetchPosts(1));
-        
-    }, [dispatch]);
+    
 
     const navigateToTest = () => {
         navigation.navigate("Question1");
     };
 
-    const navigateToNews = () => {
-        navigation.navigate("News");
-    };
+   
 
     const navigateToProfile = () => {
         navigation.navigate("Profile");
@@ -33,10 +27,7 @@ const Home = () => {
                 <Image source={require('../assets/images/recomai.png')} style={styles.image} />
                 <Text style={styles.text}>RECOMMENDER TEST</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToNews} style={styles.button}>
-            <Image source={require('../assets/images/News.jpg')} style={styles.image} />
-                <Text style={styles.text}>NEWS</Text>
-            </TouchableOpacity>
+            
             <TouchableOpacity onPress={navigateToProfile} style={styles.button}>
             <Image source={require('../assets/images/profile.jpg')} style={styles.image} />
                 <Text style={styles.text}>PROFILE</Text>

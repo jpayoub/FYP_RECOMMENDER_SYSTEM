@@ -26,9 +26,7 @@ import { RootState } from '../redux/store';
 import Home from '../screens/Home';
 import ShowGrades from '../screens/ShowGrades';
 import Result from '../screens/Result';
-import News from '../screens/News';
 import Profile from '../screens/Profile';
-import PostDetails from '../screens/PostDetails';
 import { useSelector } from 'react-redux';
 const AuthenticationStackNavigation = createNativeStackNavigator();
 const AuthenticatedStackNavigator = createNativeStackNavigator();
@@ -57,9 +55,7 @@ const AuthenticatedNavigator=()=>{
     <AuthenticatedStackNavigator.Screen name="Question18" component={Question18} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="ShowGrades" component={ShowGrades} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Result" component={Result} options={{headerShown:false}}/>
-    <AuthenticatedStackNavigator.Screen name="News" component={News} options={{headerShown:false}}/>
     <AuthenticatedStackNavigator.Screen name="Profile" component={Profile} options={{headerShown:false}}/>
-    <AuthenticatedStackNavigator.Screen name="PostDetails" component={PostDetails} options={{headerShown:false}}/>
     </AuthenticatedStackNavigator.Navigator>
   )
 }

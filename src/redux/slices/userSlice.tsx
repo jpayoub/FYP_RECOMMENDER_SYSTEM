@@ -118,20 +118,8 @@ export const userSlice = createSlice({
       builder.addCase(refreshToken.rejected, (state, action) => {
         // Handle the rejection if needed
         logout()
-      })
-      .addCase(fetchPosts.pending, (state) => {
-        state.loadingPosts = true;
-      })
-      // Add case for fulfilled action
-      .addCase(fetchPosts.fulfilled, (state, action) => {
-        state.loadingPosts = false;
-        state.posts = [...state.posts, ...action.payload.results];
-        state.currentPage = action.payload.currentPage;
-      })
-      // Add case for rejected action
-      .addCase(fetchPosts.rejected, (state, action) => {
-        state.loadingPosts = false;
       });
+      
       
   },
 });
@@ -154,31 +142,7 @@ export const login = createAsyncThunk(
     }
   }
 );
-export const fetchPosts = createAsyncThunk(
-  "user/fetchPosts",
-  async ({ page = 1, pageSize = 10 }: { page?: number; pageSize?: number }, { getState }) => {
-    try {
-      const { accessToken } = getState().user; // Get accessToken from Redux state
-      if (!accessToken) {
-        throw new Error("Access token not found");
-      }
-      const response = await axios.get<PostsResponse>(
-        `http://192.30.129.113:5837/posts?page=${page}&pageSize=${pageSize}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // Use accessToken in the Authorization header
-          },
-        }
-      );
-      // Update the current page in the state
-      const { currentPage } = getState().user;
-      console.log(response.data)
-      return { ...response.data, currentPage };
-    } catch (error) {
-      throw new Error("Error fetching posts");
-    }
-  }
-);
+
 
 
 

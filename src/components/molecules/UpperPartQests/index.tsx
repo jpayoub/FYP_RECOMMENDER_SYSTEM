@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import CustomText from '../../atoms/CustomText';
-import CustomHeader from '../../atoms/CustomHeader';
+import CustomHeader from '../CustomHeader';
 
 const index = ({text, type}) => {
   return (
