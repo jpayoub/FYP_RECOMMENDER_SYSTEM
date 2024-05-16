@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction ,createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import auth from '@react-native-firebase/auth';
 
 interface UserState {
   pageNb: number;
@@ -12,25 +12,21 @@ interface UserState {
   currentPage: number;
   loadingPosts: boolean;
 }
+
 export interface SignUpPayload {
   email: string;
   password: string;
-  tokenExpiresIn?: string;
 }
+
 export interface LoginPayload {
   email: string;
   password: string;
-  tokenExpiresIn?: string;
-}
-export interface RefreshTokenPayload {
-  refreshToken: string;
 }
 
 interface Post {
   _id: string;
   title: string;
   link: string;
-  // Add other properties as needed
 }
 
 interface PaginationMetadata {
@@ -46,7 +42,7 @@ interface PostsResponse {
 }
 
 const initialState: UserState = {
-  pageNb: 1, // Default page number can be set here
+  pageNb: 1,
   isLoggedIn: false,
   accessToken: null,
   refreshToken: null,
@@ -55,7 +51,6 @@ const initialState: UserState = {
   posts: [],
   currentPage: 1,
   loadingPosts: false,
-  
 };
 
 export const userSlice = createSlice({
@@ -65,10 +60,9 @@ export const userSlice = createSlice({
     updatePageNb: (state, action: PayloadAction<number>) => {
       state.pageNb = action.payload;
     },
-    loginSuccess: (state, action: PayloadAction<{ accessToken: string; refreshToken: string }>) => {
+    loginSuccess: (state, action: PayloadAction<{ accessToken: string }>) => {
       state.isLoggedIn = true;
       state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
     },
     logout: (state) => {
       state.isLoggedIn = false;
@@ -78,7 +72,6 @@ export const userSlice = createSlice({
     updateAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
     },
-    
   },
   extraReducers: (builder) => {
     builder
@@ -89,8 +82,7 @@ export const userSlice = createSlice({
       .addCase(signup.fulfilled, (state, action) => {
         state.loading = false;
         state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        
+        state.isLoggedIn = true;
       })
       .addCase(signup.rejected, (state, action) => {
         state.loading = false;
@@ -104,88 +96,39 @@ export const userSlice = createSlice({
         state.loading = false;
         state.isLoggedIn = true;
         state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        state.error = null; // Clear any previous login errors
+        state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
-      builder.addCase(refreshToken.fulfilled, (state, action) => {
-        // Update the state with the new access token
-        state.accessToken = action.payload;
-      });
-      builder.addCase(refreshToken.rejected, (state, action) => {
-        // Handle the rejection if needed
-        logout()
-      });
-      
-      
   },
 });
 
 export const { updatePageNb, loginSuccess, logout, updateAccessToken } = userSlice.actions;
 
-// Async action to handle login
-export const login = createAsyncThunk(
-  "user/login",
-  async ({ email, password, tokenExpiresIn }: LoginPayload, { rejectWithValue }) => {
-    try {
-      const response = await axios.post("http://192.30.129.113:5837/login", {
-        email,
-        password,
-        token_expires_in: tokenExpiresIn || "30m",
-      });
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data.message);
-    }
-  }
-);
-
-
-
-
-// Async action to handle signup
 export const signup = createAsyncThunk(
   "user/signup",
-  async ({ email, password, tokenExpiresIn }: SignUpPayload, { rejectWithValue }) => {
+  async ({ email, password }: SignUpPayload, { rejectWithValue }) => {
     try {
-      console.log("handling signup thunk");
-      const response = await axios.post("http://192.30.129.113:5837/signup", {
-        email,
-        password,
-        token_expires_in: tokenExpiresIn || "60m", // Default to 15 minutes if not provided
-      });
-      console.log(response.data);
-      return response.data;
+      const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+      const token = await userCredential.user.getIdToken();
+      return { accessToken: token };
     } catch (error) {
-      console.log("Error in signup thunk:", error);
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.message);
     }
   }
 );
 
-export const refreshToken = createAsyncThunk(
-  "user/refreshToken",
-  async (payload: RefreshTokenPayload) => {
+export const login = createAsyncThunk(
+  "user/login",
+  async ({ email, password }: LoginPayload, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://192.30.129.113:5837/refresh-token",
-        {
-          refreshToken: payload.refreshToken,
-          token_expires_in: "60m",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data;
+      const userCredential = await auth().signInWithEmailAndPassword(email, password);
+      const token = await userCredential.user.getIdToken();
+      return { accessToken: token };
     } catch (error) {
-      // Handle any errors
-      throw new Error("Failed to refresh token");
+      return rejectWithValue(error.message);
     }
   }
 );

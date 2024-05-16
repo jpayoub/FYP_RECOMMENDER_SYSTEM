@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import SignIn from '../screens/SignIn';
@@ -27,7 +27,9 @@ import Home from '../screens/Home';
 import ShowGrades from '../screens/ShowGrades';
 import Result from '../screens/Result';
 import Profile from '../screens/Profile';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess, logout } from '../redux/slices/userSlice';
+import auth from '@react-native-firebase/auth';
 const AuthenticationStackNavigation = createNativeStackNavigator();
 const AuthenticatedStackNavigator = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -82,6 +84,21 @@ const AuthenticationNavigator = () => {
 
 
 const MainNavigator = () =>{
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        const token = await user.getIdToken();
+        dispatch(loginSuccess({ accessToken: token }));
+      } else {
+        dispatch(logout());
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch]);
+
   const isLogged = useSelector((state:RootState)=>state.user.accessToken);
   return isLogged?<AuthenticatedNavigator/>:<AuthenticationNavigator/>;
 
