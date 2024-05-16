@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "798193388957",
+    "project_id": "recommenderfyp",
+    "storage_bucket": "recommenderfyp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798193388957:android:c9afdce45bc50b7857b374",
+        "android_client_info": {
+          "package_name": "com.recommendersystem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhEFOJU2NPOsN1JRaQDUAiA-uglDUEhGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
