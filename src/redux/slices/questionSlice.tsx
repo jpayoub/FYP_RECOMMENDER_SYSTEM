@@ -1,120 +1,162 @@
-import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-interface questionState {
-    question1: number,
-    question2: number,
-    question3: number,
-    question4: number,
-    question5: number,
-    question6: number,
-    question7: number,
-    question8: number,
-    question9: number,
-    question10: number,
-    question11: number,
-    question12: number,
-    question13: number,
-    question14: number,
-    question15: number,
-    question16:number,
-    question17:number,
+interface QuestionState {
+    Physical_Activity: number,
     Maths: string,
-    Physics: string,
-    Chemistry: string,
     Biology: string,
+    Chemistry: string,
+    Physics: string,
     Economics: string,
     Sociology: string,
     History: string,
     Geography: string,
     Literature: string,
-
-
-
+    Practical_vs_Theoretical: number,
+    Alone_vs_Team: number,
+    Interest_Tech: number,
+    Creative_vs_Analytical: number,
+    Indoor_vs_Outdoor: number,
+    Problem_Solving: number,
+    Communication: number,
+    Leadership: number,
+    Attention_to_Detail: number,
+    Organizational_Skills: number,
+    Helping_Others: number,
+    Making_Money: number,
+    Job_Security: number,
+    Innovation_Passion: number,
+    Left_vs_Right_Brain: number,
+    Debate: number,
+    result:string
 }
-const initialState: questionState={
-    question1: 1,
-    question2: 1,
-    question3: 1,
-    question4: 1,
-    question5: 1,
-    question6: 1,
-    question7: 1,
-    question8: 1,
-    question9: 1,
-    question10: 1,
-    question11: 1,
-    question12: 1,
-    question13: 1,
-    question14: 1,
-    question15: 1,
-    question16:1,
-    question17:1,
+
+const initialState: QuestionState = {
+    Physical_Activity: 1,
     Maths: '10',
-    Physics: '10',
-    Chemistry: '10',
     Biology: '10',
+    Chemistry: '10',
+    Physics: '10',
     Economics: '10',
     Sociology: '10',
     History: '10',
     Geography: '10',
     Literature: '10',
-}
+    Practical_vs_Theoretical: 1,
+    Alone_vs_Team: 1,
+    Interest_Tech: 1,
+    Creative_vs_Analytical: 1,
+    Indoor_vs_Outdoor: 1,
+    Problem_Solving: 1,
+    Communication: 1,
+    Leadership: 1,
+    Attention_to_Detail: 1,
+    Organizational_Skills: 1,
+    Helping_Others: 1,
+    Making_Money: 1,
+    Job_Security: 1,
+    Innovation_Passion: 1,
+    Left_vs_Right_Brain: 1,
+    Debate: 1,
+    result:''
+};
 
+// Async thunk to send data to backend and get the response
+export const submitQuestions = createAsyncThunk(
+    'questions/submitQuestions',
+    async (questionState: QuestionState, thunkAPI) => {
+        try {
+            const response = await axios.post('https://recommender.qctcoin.com/predict', {
+                features: [
+                    questionState.Physical_Activity,
+                    parseFloat(questionState.Maths),
+                    parseFloat(questionState.Biology),
+                    parseFloat(questionState.Chemistry),
+                    parseFloat(questionState.Physics),
+                    parseFloat(questionState.Economics),
+                    parseFloat(questionState.Sociology),
+                    parseFloat(questionState.History),
+                    parseFloat(questionState.Geography),
+                    parseFloat(questionState.Literature),
+                    questionState.Practical_vs_Theoretical,
+                    questionState.Alone_vs_Team,
+                    questionState.Interest_Tech,
+                    questionState.Creative_vs_Analytical,
+                    questionState.Indoor_vs_Outdoor,
+                    questionState.Problem_Solving,
+                    questionState.Communication,
+                    questionState.Leadership,
+                    questionState.Attention_to_Detail,
+                    questionState.Organizational_Skills,
+                    questionState.Helping_Others,
+                    questionState.Making_Money,
+                    questionState.Job_Security,
+                    questionState.Innovation_Passion,
+                    questionState.Left_vs_Right_Brain,
+                    questionState.Debate,
+                ]
+            });
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+);
 
-export const questionSlice = createSlice ({
+export const questionSlice = createSlice({
     name: 'questions',
     initialState,
-    reducers:{
+    reducers: {
         updateQuestion1: (state, action: PayloadAction<number>) => {
-            state.question1 = action.payload;
+            state.Practical_vs_Theoretical = action.payload;
         },
         updateQuestion2: (state, action: PayloadAction<number>) => {
-            state.question2 = action.payload;
+            state.Alone_vs_Team = action.payload;
         },
         updateQuestion3: (state, action: PayloadAction<number>) => {
-            state.question3 = action.payload;
+            state.Interest_Tech = action.payload;
         },
         updateQuestion4: (state, action: PayloadAction<number>) => {
-            state.question4 = action.payload;
+            state.Creative_vs_Analytical = action.payload;
         },
         updateQuestion5: (state, action: PayloadAction<number>) => {
-            state.question5 = action.payload;
+            state.Indoor_vs_Outdoor = action.payload;
         },
         updateQuestion6: (state, action: PayloadAction<number>) => {
-            state.question6 = action.payload;
+            state.Problem_Solving = action.payload;
         },
         updateQuestion7: (state, action: PayloadAction<number>) => {
-            state.question7 = action.payload;
+            state.Communication = action.payload;
         },
         updateQuestion8: (state, action: PayloadAction<number>) => {
-            state.question8 = action.payload;
+            state.Leadership = action.payload;
         },
         updateQuestion9: (state, action: PayloadAction<number>) => {
-            state.question9 = action.payload;
+            state.Attention_to_Detail = action.payload;
         },
         updateQuestion10: (state, action: PayloadAction<number>) => {
-            state.question10 = action.payload;
+            state.Organizational_Skills = action.payload;
         },
         updateQuestion11: (state, action: PayloadAction<number>) => {
-            state.question11 = action.payload;
+            state.Helping_Others = action.payload;
         },
         updateQuestion12: (state, action: PayloadAction<number>) => {
-            state.question12 = action.payload;
+            state.Making_Money = action.payload;
         },
         updateQuestion13: (state, action: PayloadAction<number>) => {
-            state.question13 = action.payload;
+            state.Job_Security = action.payload;
         },
         updateQuestion14: (state, action: PayloadAction<number>) => {
-            state.question14 = action.payload;
+            state.Innovation_Passion = action.payload;
         },
         updateQuestion15: (state, action: PayloadAction<number>) => {
-            state.question15 = action.payload;
+            state.Physical_Activity = action.payload;
         },
         updateQuestion16: (state, action: PayloadAction<number>) => {
-            state.question16 = action.payload;
+            state.Debate = action.payload;
         },
         updateQuestion17: (state, action: PayloadAction<number>) => {
-            state.question17 = action.payload;
+            state.Left_vs_Right_Brain = action.payload;
         },
         updateMaths: (state, action: PayloadAction<string>) => {
             state.Maths = action.payload;
@@ -143,7 +185,22 @@ export const questionSlice = createSlice ({
         updateLiterature: (state, action: PayloadAction<string>) => {
             state.Literature = action.payload;
         },
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(submitQuestions.pending, (state) => {
+                // Handle loading state if needed
+            })
+            .addCase(submitQuestions.fulfilled, (state, action) => {
+                // Handle success state and response data if needed
+                console.log('Prediction result:', action.payload);
+                state.result = action.payload.predicted_domain;
+            })
+            .addCase(submitQuestions.rejected, (state, action) => {
+                // Handle error state if needed
+                console.error('Prediction error:', action.payload);
+            });
+    },
 });
 
 export const {
@@ -163,6 +220,7 @@ export const {
     updateQuestion14,
     updateQuestion15,
     updateQuestion16,
+    updateQuestion17,
     updateMaths,
     updatePhysics,
     updateChemistry,
@@ -172,6 +230,6 @@ export const {
     updateHistory,
     updateGeography,
     updateLiterature,
-  } = questionSlice.actions;
-  export default questionSlice.reducer;
+} = questionSlice.actions;
 
+export default questionSlice.reducer;
