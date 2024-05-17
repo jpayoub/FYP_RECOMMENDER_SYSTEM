@@ -5,13 +5,22 @@ import CustomRangeSlider from '../../atoms/CustomRangeSlider';
 import CustomButton from '../../atoms/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { updatePageNb } from '../../../redux/slices/userSlice';
 const index = ({question, type, questDesc, nextpage}) => {
     const navigation = useNavigation();
-
+    const dispatch = useDispatch();
+    const pageNb = useSelector((state:RootState)=>state.user.pageNb);
     const navigatetoQues = () => {
-
-        navigation.navigate(nextpage, {});    
+        console.log('page number', pageNb)
+        if(pageNb < 16){
+            const updatedPgNb = pageNb+1;
+            dispatch(updatePageNb(updatedPgNb))   
+        }else{
+            navigation.navigate("Question18",{});
+        }
+       
     }
 
   return (

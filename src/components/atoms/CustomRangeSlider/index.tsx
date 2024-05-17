@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from '@react-native-community/slider';
 import CustomText from '../CustomText'
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,15 +11,14 @@ import { RootState } from '../../../redux/store';
 
 
 const index = () => {
-
-
-   
-
   const[chosenRange,setChosenRange] = useState(1);
 
-  const dispatch = useDispatch(); 
   const pageNb = useSelector((state:RootState)=>state.user.pageNb);
-const questttt1 = useSelector((state:RootState)=>state.questions.question1);
+
+   useEffect(() => {setChosenRange(1)},[pageNb])
+
+
+  const dispatch = useDispatch(); 
 
   const handleRangeChange = (chosenRange: number) => {
     switch (pageNb) {
@@ -98,6 +97,7 @@ const questttt1 = useSelector((state:RootState)=>state.questions.question1);
       onValueChange={(value)=>{setChosenRange(value); handleRangeChange(chosenRange);}}
       minimumTrackTintColor="blue"
       maximumTrackTintColor="blue"
+      value={chosenRange}
       step={1}
       />
 
