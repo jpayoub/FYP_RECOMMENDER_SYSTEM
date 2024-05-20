@@ -8,7 +8,9 @@ import SlideUpFromBottom from '../../atoms/CustomSlideFromBottom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { updatePageNb } from '../../../redux/slices/userSlice';
-const index = ({question, type, questDesc, nextpage}) => {
+
+const index = ({question, type, questDesc}) => {
+    
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const pageNb = useSelector((state:RootState)=>state.user.pageNb);

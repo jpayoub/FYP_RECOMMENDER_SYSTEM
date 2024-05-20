@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { updatePageNb } from '../redux/slices/userSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-const Question1 = () => {
+const Questions = () => {
     const pageNb = useSelector((state:RootState)=>state.user.pageNb);
     const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ const Question1 = () => {
             question={pageNb<18?questions[pageNb-1].question:""}
             type="Title2"
             questDesc={pageNb<18?questions[pageNb-1].questDesc:""}
-            nextpage="Question2" /> 
+            /> 
             
 
 
@@ -47,7 +47,7 @@ const Question1 = () => {
   )
 }
 
-export default Question1;
+export default Questions;
 
 const styles = StyleSheet.create({
     container: {
