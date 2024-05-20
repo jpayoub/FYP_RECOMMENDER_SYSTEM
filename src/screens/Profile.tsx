@@ -4,11 +4,13 @@ import profile from '../assets/images/profile1.png';
 import CustomButton from '../components/atoms/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { RootState } from '../redux/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import auth from '@react-native-firebase/auth';
+import { updatePageNb } from '../redux/slices/userSlice';
 
 const Profile = () => {
 
-
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const major = useSelector((state:RootState)=>state.questions.result);
@@ -17,6 +19,8 @@ const Profile = () => {
     navigation.navigate("Home");
   };
   const navigateRecom = () => {
+    const updatedPgNb = 1;
+            dispatch(updatePageNb(updatedPgNb));
     navigation.navigate("Question1");
   };
 
@@ -27,7 +31,7 @@ const Profile = () => {
           source={profile} // Replace with your image source
           style={styles.profileImage}
         />
-        <Text style={styles.name}>John Doe</Text>
+        <Text style={styles.name}>{auth().currentUser?.email}</Text>
         {major? (
           <>
         <Text style={styles.smallText}>Your Major is:</Text>

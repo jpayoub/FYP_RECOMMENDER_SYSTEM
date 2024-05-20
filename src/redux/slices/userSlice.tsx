@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import auth from '@react-native-firebase/auth';
+import { useDispatch } from "react-redux";
+import questionSlice from "./questionSlice";
+
+
 
 interface UserState {
   pageNb: number;
@@ -65,6 +69,7 @@ export const userSlice = createSlice({
       state.accessToken = action.payload.accessToken;
     },
     logout: (state) => {
+      auth().signOut();
       state.isLoggedIn = false;
       state.accessToken = null;
       state.refreshToken = null;
@@ -132,5 +137,7 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+  
 
 export default userSlice.reducer;

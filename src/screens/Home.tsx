@@ -4,8 +4,9 @@ import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
-import { logout } from '../redux/slices/userSlice';
+import { logout, updatePageNb } from '../redux/slices/userSlice';
 import { fetchPosts } from '../redux/slices/userSlice';
+import { updateResult } from '../redux/slices/questionSlice';
 const Home = () => {
     const navigation = useNavigation();
     const dispatch: AppDispatch = useDispatch();
@@ -21,6 +22,12 @@ const Home = () => {
         navigation.navigate("Profile");
     };
 
+    const logOut = () => {
+        dispatch(updateResult(''));
+        dispatch(updatePageNb(1));
+        dispatch(logout());
+    }
+
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={navigateToTest} style={styles.button}>
@@ -32,7 +39,7 @@ const Home = () => {
             <Image source={require('../assets/images/profile.jpg')} style={styles.image} />
                 <Text style={styles.text}>PROFILE</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>dispatch(logout())} style={styles.button}>
+            <TouchableOpacity onPress={logOut} style={styles.button}>
             <Image source={require('../assets/images/logout.png')} style={styles.image} />
                 <Text style={styles.text}>LOGOUT</Text>
             </TouchableOpacity>

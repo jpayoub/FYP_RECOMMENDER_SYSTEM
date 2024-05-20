@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { submitQuestions } from "../redux/slices/questionSlice";
 import { RootState, AppDispatch } from "../redux/store";
+import { updatePageNb } from "../redux/slices/userSlice";
 
 export default function Animation() {
   const [animationFinished, setAnimationFinished] = useState(false);
@@ -30,7 +31,9 @@ export default function Animation() {
     navigation.navigate("Home");
   };
   const navigateRecom = () => {
-    navigation.navigate("Question1");
+            const updatedPgNb = 1;
+            dispatch(updatePageNb(updatedPgNb));
+            navigation.navigate("Question1"); 
   };
 
   return (

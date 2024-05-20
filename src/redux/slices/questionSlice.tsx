@@ -185,6 +185,9 @@ export const questionSlice = createSlice({
         updateLiterature: (state, action: PayloadAction<string>) => {
             state.Literature = action.payload;
         },
+        updateResult: (state, action: PayloadAction<string>) => {
+            state.result = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -230,6 +233,7 @@ export const {
     updateHistory,
     updateGeography,
     updateLiterature,
+    updateResult,
 } = questionSlice.actions;
 
 export default questionSlice.reducer;

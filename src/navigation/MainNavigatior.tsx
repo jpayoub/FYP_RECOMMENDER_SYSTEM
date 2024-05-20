@@ -15,7 +15,6 @@ import { loginSuccess, logout } from '../redux/slices/userSlice';
 import auth from '@react-native-firebase/auth';
 const AuthenticationStackNavigation = createNativeStackNavigator();
 const AuthenticatedStackNavigator = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
 const AuthenticatedNavigator=()=>{
   return(
     <AuthenticatedStackNavigator.Navigator >
@@ -29,14 +28,7 @@ const AuthenticatedNavigator=()=>{
   )
 }
 
-const DrawerNavigation = () => {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="ShowGrades" component={ShowGrades}/>
-      <Drawer.Screen name="Result" component={Result} />
-    </Drawer.Navigator>
-  )
-}
+
 
 const AuthenticationNavigator = () => {
   return (
