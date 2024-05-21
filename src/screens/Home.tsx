@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
 import { logout, updatePageNb } from '../redux/slices/userSlice';
-import { fetchPosts } from '../redux/slices/userSlice';
 import { updateResult } from '../redux/slices/questionSlice';
 const Home = () => {
     const navigation = useNavigation();

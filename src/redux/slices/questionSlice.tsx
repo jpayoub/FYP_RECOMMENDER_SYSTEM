@@ -66,7 +66,7 @@ export const submitQuestions = createAsyncThunk(
     'questions/submitQuestions',
     async (questionState: QuestionState, thunkAPI) => {
         try {
-            const response = await axios.post('https://recommender.qctcoin.com/predict', {
+            const response = await axios.post('https://fyp-recommender.saadnco.com/predict', {
                 features: [
                     questionState.Physical_Activity,
                     parseFloat(questionState.Maths),
