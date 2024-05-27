@@ -28,6 +28,8 @@ export default function Animation() {
   }, [animationFinished, dispatch, state]);
 
   const navigateHome = () => {
+    const updatedPgNb = 1;
+            dispatch(updatePageNb(updatedPgNb));
     navigation.navigate("Home");
   };
   const navigateRecom = () => {

@@ -22,7 +22,7 @@ const index = ({question, type, questDesc}) => {
         }else{
             navigation.navigate("Question18",{});
         }
-       
+        
     }
 
   return (
