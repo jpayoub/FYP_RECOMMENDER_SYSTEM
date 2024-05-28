@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import firestore from '@react-native-firebase/firestore';
+interface Question{
+    question:string,
+    scale:string
+}
 interface QuestionState {
-    Physical_Activity: number,
     Maths: string,
     Biology: string,
     Chemistry: string,
@@ -12,27 +15,28 @@ interface QuestionState {
     History: string,
     Geography: string,
     Literature: string,
-    Practical_vs_Theoretical: number,
-    Alone_vs_Team: number,
-    Interest_Tech: number,
-    Creative_vs_Analytical: number,
-    Indoor_vs_Outdoor: number,
-    Problem_Solving: number,
-    Communication: number,
-    Leadership: number,
-    Attention_to_Detail: number,
-    Organizational_Skills: number,
-    Helping_Others: number,
-    Making_Money: number,
-    Job_Security: number,
-    Innovation_Passion: number,
-    Left_vs_Right_Brain: number,
-    Debate: number,
-    result:string
+    question1: number,
+    question2: number,
+    question3: number,
+    question4: number,
+    question5: number,
+    question6: number,
+    question7: number,
+    question8: number,
+    question9: number,
+    question10: number,
+    question11: number,
+    question12: number,
+    question13: number,
+    question14: number,
+    question15: number,
+    question16: number,
+    question17: number,
+    result:string,
+    questions:Question[]
 }
 
 const initialState: QuestionState = {
-    Physical_Activity: 1,
     Maths: '10',
     Biology: '10',
     Chemistry: '10',
@@ -42,23 +46,25 @@ const initialState: QuestionState = {
     History: '10',
     Geography: '10',
     Literature: '10',
-    Practical_vs_Theoretical: 1,
-    Alone_vs_Team: 1,
-    Interest_Tech: 1,
-    Creative_vs_Analytical: 1,
-    Indoor_vs_Outdoor: 1,
-    Problem_Solving: 1,
-    Communication: 1,
-    Leadership: 1,
-    Attention_to_Detail: 1,
-    Organizational_Skills: 1,
-    Helping_Others: 1,
-    Making_Money: 1,
-    Job_Security: 1,
-    Innovation_Passion: 1,
-    Left_vs_Right_Brain: 1,
-    Debate: 1,
-    result:''
+    question1: 1,
+    question2: 1,
+    question3: 1,
+    question4: 1,
+    question5: 1,
+    question6: 1,
+    question7: 1,
+    question8: 1,
+    question9: 1,
+    question10: 1,
+    question11: 1,
+    question12: 1,
+    question13: 1,
+    question14: 1,
+    question15: 1,
+    question16: 1,
+    question17: 1,
+    result:'',
+    questions:[]
 };
 
 // Async thunk to send data to backend and get the response
@@ -68,7 +74,7 @@ export const submitQuestions = createAsyncThunk(
         try {
             const response = await axios.post('https://fyp-recommender.saadnco.com/predict', {
                 features: [
-                    questionState.Physical_Activity,
+                    questionState.question15,
                     parseFloat(questionState.Maths),
                     parseFloat(questionState.Biology),
                     parseFloat(questionState.Chemistry),
@@ -78,22 +84,22 @@ export const submitQuestions = createAsyncThunk(
                     parseFloat(questionState.History),
                     parseFloat(questionState.Geography),
                     parseFloat(questionState.Literature),
-                    questionState.Practical_vs_Theoretical,
-                    questionState.Alone_vs_Team,
-                    questionState.Interest_Tech,
-                    questionState.Creative_vs_Analytical,
-                    questionState.Indoor_vs_Outdoor,
-                    questionState.Problem_Solving,
-                    questionState.Communication,
-                    questionState.Leadership,
-                    questionState.Attention_to_Detail,
-                    questionState.Organizational_Skills,
-                    questionState.Helping_Others,
-                    questionState.Making_Money,
-                    questionState.Job_Security,
-                    questionState.Innovation_Passion,
-                    questionState.Left_vs_Right_Brain,
-                    questionState.Debate,
+                    questionState.question1,
+                    questionState.question2,
+                    questionState.question3,
+                    questionState.question4,
+                    questionState.question5,
+                    questionState.question6,
+                    questionState.question7,
+                    questionState.question8,
+                    questionState.question9,
+                    questionState.question10,
+                    questionState.question11,
+                    questionState.question12,
+                    questionState.question13,
+                    questionState.question14,
+                    questionState.question16,
+                    questionState.question17,
                 ]
             });
             return response.data;
@@ -102,61 +108,70 @@ export const submitQuestions = createAsyncThunk(
         }
     }
 );
+export const fetchQuestions = createAsyncThunk('questions/fetchQuestions', async (documentId) => {
+    const docSnap = await firestore().collection('questions').doc(documentId).get();
+    if (docSnap.exists) {
+      return docSnap.data().questions;
+    } else {
+        console.log('No such document!');
+      throw new Error('No such document!');
+    }
+  });
 
 export const questionSlice = createSlice({
     name: 'questions',
     initialState,
     reducers: {
         updateQuestion1: (state, action: PayloadAction<number>) => {
-            state.Practical_vs_Theoretical = action.payload;
+            state.question1 = action.payload;
         },
         updateQuestion2: (state, action: PayloadAction<number>) => {
-            state.Alone_vs_Team = action.payload;
+            state.question2 = action.payload;
         },
         updateQuestion3: (state, action: PayloadAction<number>) => {
-            state.Interest_Tech = action.payload;
+            state.question3 = action.payload;
         },
         updateQuestion4: (state, action: PayloadAction<number>) => {
-            state.Creative_vs_Analytical = action.payload;
+            state.question4 = action.payload;
         },
         updateQuestion5: (state, action: PayloadAction<number>) => {
-            state.Indoor_vs_Outdoor = action.payload;
+            state.question5 = action.payload;
         },
         updateQuestion6: (state, action: PayloadAction<number>) => {
-            state.Problem_Solving = action.payload;
+            state.question6 = action.payload;
         },
         updateQuestion7: (state, action: PayloadAction<number>) => {
-            state.Communication = action.payload;
+            state.question7 = action.payload;
         },
         updateQuestion8: (state, action: PayloadAction<number>) => {
-            state.Leadership = action.payload;
+            state.question8 = action.payload;
         },
         updateQuestion9: (state, action: PayloadAction<number>) => {
-            state.Attention_to_Detail = action.payload;
+            state.question9 = action.payload;
         },
         updateQuestion10: (state, action: PayloadAction<number>) => {
-            state.Organizational_Skills = action.payload;
+            state.question10 = action.payload;
         },
         updateQuestion11: (state, action: PayloadAction<number>) => {
-            state.Helping_Others = action.payload;
+            state.question11 = action.payload;
         },
         updateQuestion12: (state, action: PayloadAction<number>) => {
-            state.Making_Money = action.payload;
+            state.question12 = action.payload;
         },
         updateQuestion13: (state, action: PayloadAction<number>) => {
-            state.Job_Security = action.payload;
+            state.question13 = action.payload;
         },
         updateQuestion14: (state, action: PayloadAction<number>) => {
-            state.Innovation_Passion = action.payload;
+            state.question14 = action.payload;
         },
         updateQuestion15: (state, action: PayloadAction<number>) => {
-            state.Physical_Activity = action.payload;
+            state.question15 = action.payload;
         },
         updateQuestion16: (state, action: PayloadAction<number>) => {
-            state.Debate = action.payload;
+            state.question17 = action.payload;
         },
         updateQuestion17: (state, action: PayloadAction<number>) => {
-            state.Left_vs_Right_Brain = action.payload;
+            state.question16 = action.payload;
         },
         updateMaths: (state, action: PayloadAction<string>) => {
             state.Maths = action.payload;
@@ -202,6 +217,18 @@ export const questionSlice = createSlice({
             .addCase(submitQuestions.rejected, (state, action) => {
                 // Handle error state if needed
                 console.error('Prediction error:', action.payload);
+            })
+            .addCase(fetchQuestions.pending, (state) => {
+                // Handle loading state if needed
+            })
+            .addCase(fetchQuestions.fulfilled, (state, action) => {
+                // Handle success state and response data if needed
+                console.log('question result:', action.payload);
+                state.questions = action.payload;
+            })
+            .addCase(fetchQuestions.rejected, (state, action) => {
+                // Handle error state if needed
+                console.error('fetching  error:', action.payload);
             });
     },
 });
