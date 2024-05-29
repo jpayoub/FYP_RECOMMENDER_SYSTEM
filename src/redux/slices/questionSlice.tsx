@@ -33,7 +33,9 @@ interface QuestionState {
     question16: number,
     question17: number,
     result:string,
-    questions:Question[]
+    questions:Question[],
+    loading: boolean,
+    error: string | null,
 }
 
 const initialState: QuestionState = {
@@ -64,8 +66,14 @@ const initialState: QuestionState = {
     question16: 1,
     question17: 1,
     result:'',
-    questions:[]
+    questions:[],
+    loading: false,
+    error: null,
 };
+
+
+
+
 
 // Async thunk to send data to backend and get the response
 export const submitQuestions = createAsyncThunk(
@@ -108,15 +116,31 @@ export const submitQuestions = createAsyncThunk(
         }
     }
 );
-export const fetchQuestions = createAsyncThunk('questions/fetchQuestions', async (documentId) => {
-    const docSnap = await firestore().collection('questions').doc(documentId).get();
-    if (docSnap.exists) {
-      return docSnap.data().questions;
-    } else {
-        console.log('No such document!');
-      throw new Error('No such document!');
+
+// Thunk to determine the category and fetch questions accordingly
+export const determineAndFetchQuestions = createAsyncThunk('questions/determineAndFetchQuestions', async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as { questions: QuestionState };
+    const category = state.questions.result || 'general';
+    const response = await thunkAPI.dispatch(fetchQuestionsByCategory(category.toLowerCase()));
+    return response.payload;
+});
+
+// Thunk to fetch questions by category
+export const fetchQuestionsByCategory = createAsyncThunk('questions/fetchQuestionsByCategory', async (category: string, thunkAPI) => {
+    try {
+        const docSnap = await firestore().collection('questions').doc(category.toLowerCase()).get();
+        if (docSnap.exists) {
+            const data = docSnap.data();
+            console.log('Fetched data:', data);  // Log fetched data to debug
+            return data.questionsArray;
+        } else {
+            throw new Error('No such document!');
+        }
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.message);
     }
-  });
+});
+
 
 export const questionSlice = createSlice({
     name: 'questions',
@@ -218,17 +242,29 @@ export const questionSlice = createSlice({
                 // Handle error state if needed
                 console.error('Prediction error:', action.payload);
             })
-            .addCase(fetchQuestions.pending, (state) => {
+            .addCase(fetchQuestionsByCategory.pending, (state) => {
                 // Handle loading state if needed
             })
-            .addCase(fetchQuestions.fulfilled, (state, action) => {
+            .addCase(fetchQuestionsByCategory.fulfilled, (state, action) => {
                 // Handle success state and response data if needed
-                console.log('question result:', action.payload);
+                console.log('question result fetch:', action.payload);
                 state.questions = action.payload;
             })
-            .addCase(fetchQuestions.rejected, (state, action) => {
+            .addCase(fetchQuestionsByCategory.rejected, (state, action) => {
                 // Handle error state if needed
-                console.error('fetching  error:', action.payload);
+                console.error('fetching  error fetch:', action.payload);
+            })
+            .addCase(determineAndFetchQuestions.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(determineAndFetchQuestions.fulfilled, (state, action) => {
+                state.loading = false;
+                state.questions = action.payload;
+            })
+            .addCase(determineAndFetchQuestions.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
             });
     },
 });

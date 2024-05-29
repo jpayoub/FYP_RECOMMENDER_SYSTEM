@@ -14,9 +14,12 @@ const index = ({question, type, questDesc}) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const pageNb = useSelector((state:RootState)=>state.user.pageNb);
+    const questions = useSelector((state: RootState) => state.questions.questions);
+
+
     const navigatetoQues = () => {
         console.log('page number', pageNb)
-        if(pageNb < 16){
+        if (questions && questions.length > 0 && pageNb < questions.length) {
             const updatedPgNb = pageNb+1;
             dispatch(updatePageNb(updatedPgNb))   
         }else{
