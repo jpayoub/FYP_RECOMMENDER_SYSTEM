@@ -7,12 +7,13 @@ import { RootState } from '../../../redux/store';
 const index = ({}) => {
 
   const pageNb = useSelector((state:RootState)=>state.user.pageNb);
+  const { result, questions } = useSelector((state:RootState) => state.questions);
 
 
   return (
     <View>
       <View style = {styles.container}>
-        <Text style={styles.progressnumber}>{pageNb}/ <Text style={styles.totalprogress}>18</Text> </Text>
+        <Text style={styles.progressnumber}>{pageNb}/ <Text style={styles.totalprogress}>{result ? questions.length : 18}</Text> </Text>
       </View>
       <CustomProgressBar />
     </View>

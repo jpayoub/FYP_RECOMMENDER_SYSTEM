@@ -112,7 +112,7 @@ const SignUp = () => {
 
               <CustomButton
                 text="Register"
-                type={isValid ? 'PRIMARY' : 'DISABLED'}
+                type={isValid && values.email && values.Password && values.confirmPassword  ? 'PRIMARY' : 'DISABLED'}
                 onPress={isValid ? handleSubmit : null}
               />
             </>

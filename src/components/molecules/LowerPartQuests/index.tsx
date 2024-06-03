@@ -15,6 +15,7 @@ const index = ({question, type, questDesc}) => {
     const dispatch = useDispatch();
     const pageNb = useSelector((state:RootState)=>state.user.pageNb);
     const questions = useSelector((state: RootState) => state.questions.questions);
+    const result = useSelector((state:RootState) => state.questions);
 
 
     const navigatetoQues = () => {
@@ -23,7 +24,7 @@ const index = ({question, type, questDesc}) => {
             const updatedPgNb = pageNb+1;
             dispatch(updatePageNb(updatedPgNb))   
         }else{
-            navigation.navigate("Question18",{});
+            pageNb ===17 ? navigation.navigate("Question18") : navigation.navigate("Home",{});
         }
         
     }

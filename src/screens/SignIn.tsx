@@ -78,7 +78,7 @@ const SignIn = () => {
       setValue={handleChange('email')} 
       secureTextEntry={false} 
       />
-       {errors.email && (
+      {errors.email && (
         <Text style={Styles.errorText}> {errors.email} </Text>
       )}
 

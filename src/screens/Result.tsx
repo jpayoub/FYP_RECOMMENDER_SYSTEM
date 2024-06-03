@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
-import LottieView from "lottie-react-native";
 import { View, Text, StyleSheet } from "react-native";
 import CustomButton from "../components/atoms/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { submitQuestions } from "../redux/slices/questionSlice";
+import { determineAndFetchQuestions, submitQuestions, updateResult } from "../redux/slices/questionSlice";
 import { RootState, AppDispatch } from "../redux/store";
 import { updatePageNb } from "../redux/slices/userSlice";
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 
 export default function Animation() {
-  const [animationFinished, setAnimationFinished] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch<AppDispatch>();
   const state = useSelector((state: RootState) => state.questions);
   const [major, setMajor] = useState<string | null>(null);
+  const userEmail = auth().currentUser?.email;
 
   useEffect(() => {
-    if (animationFinished) {
+    
       dispatch(submitQuestions(state))
         .then((result: any) => {
           if (result.type === "questions/submitQuestions/fulfilled") {
@@ -24,8 +26,32 @@ export default function Animation() {
           }
         })
         .catch((error) => console.error("Error submitting questions:", error));
+    
+  }, [ dispatch, state]);
+
+
+  useEffect(() => {
+    const updateMajorInFirestore = async () => {
+      if (userEmail && major) {
+        try {
+          await firestore().collection('Users').doc(userEmail).set(
+            { major: major },
+            { merge: true } // Use merge to update the field without overwriting the entire document
+            
+          );
+          dispatch(updateResult(major));
+          console.log("Major updated successfully in Firestore");
+        } catch (error) {
+          console.error("Error updating major in Firestore:", error);
+        }
+      }
+    };
+    if (major) {
+      updateMajorInFirestore();
+      dispatch(updateResult(major));
+
     }
-  }, [animationFinished, dispatch, state]);
+  }, [major, userEmail]);
 
   const navigateHome = () => {
     const updatedPgNb = 1;
@@ -33,22 +59,18 @@ export default function Animation() {
     navigation.navigate("Home");
   };
   const navigateRecom = () => {
+    dispatch(updateResult(major));
             const updatedPgNb = 1;
             dispatch(updatePageNb(updatedPgNb));
+            dispatch(determineAndFetchQuestions());
             navigation.navigate("Question1"); 
   };
 
+  
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      {!animationFinished ? (
-        <LottieView
-          source={require('../assets/lottie/Animation-ai.json')}
-          style={{ width: '100%', height: '100%' }}
-          autoPlay
-          loop={false}
-          onAnimationFinish={() => setAnimationFinished(true)}
-        />
-      ) : (
+      
         <View style={styles.container}>
           {major ? (
             <>
@@ -57,23 +79,22 @@ export default function Animation() {
                 <View style = {styles.majorContainer}>
                 <Text style={styles.major}>{major}</Text>
                 </View>
-                <Text>or a related field based on your interests and strengths.</Text>
                 <CustomButton 
                 onPress={navigateRecom} 
-                text="Retake Test"
+                text="Continue the Test"
                 type="PRIMARY" 
               />
-              <CustomButton 
+              {/* <CustomButton 
                 onPress={navigateHome} 
                 text="Go Back Home"
                 type="PRIMARY" 
-              />
+              /> */}
             </>
           ) : (
             <Text>Loading your recommended major...</Text>
           )}
         </View>
-      )}
+      
     </View>
   );
 }

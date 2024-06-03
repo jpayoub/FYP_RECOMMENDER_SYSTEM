@@ -121,6 +121,7 @@ export const submitQuestions = createAsyncThunk(
 export const determineAndFetchQuestions = createAsyncThunk('questions/determineAndFetchQuestions', async (_, thunkAPI) => {
     const state = thunkAPI.getState() as { questions: QuestionState };
     const category = state.questions.result || 'general';
+    console.log("catttttttttttttttttttttttttt", category);
     const response = await thunkAPI.dispatch(fetchQuestionsByCategory(category.toLowerCase()));
     return response.payload;
 });
@@ -131,8 +132,9 @@ export const fetchQuestionsByCategory = createAsyncThunk('questions/fetchQuestio
         const docSnap = await firestore().collection('questions').doc(category.toLowerCase()).get();
         if (docSnap.exists) {
             const data = docSnap.data();
+            console.log("result hereeeeeeeee", category.toLowerCase())
             console.log('Fetched data:', data);  // Log fetched data to debug
-            return data.questionsArray;
+            return data.questionsArray || data.questions;
         } else {
             throw new Error('No such document!');
         }
