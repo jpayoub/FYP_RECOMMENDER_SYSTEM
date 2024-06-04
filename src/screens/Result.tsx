@@ -119,7 +119,7 @@ export default function Animation() {
                   </>
                     ) : null }
                 </View>
-                {major && specificMajor ? (
+                {major ? (
                 <CustomButton 
                 onPress={navigateRecom} 
                 text="Continue the Test"

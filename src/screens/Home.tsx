@@ -12,10 +12,11 @@ const Home = () => {
     
 
     const navigateToTest = () => {
+        dispatch(updateResult(''));
         navigation.navigate("Question1");
+
     };
 
-   
 
     const navigateToProfile = () => {
         navigation.navigate("Profile");
