@@ -76,8 +76,12 @@ if (loading) {
           <>
         <Text style={styles.smallText}>Your Major is:</Text>
         <Text style={styles.major}>{major}</Text>
+        {specificMajor? (
+        <>
         <Text style={styles.smallText}>Your are likely going to be: </Text>
         <Text style={styles.major}>{specificMajor}</Text>
+        </>
+          ) : null }
         <CustomButton
             onPress={navigateRecom}
             text="Retake Test"

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import CustomButton from "../components/atoms/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { determineAndFetchQuestions, submitQuestions, updateResult } from "../redux/slices/questionSlice";
+import { determineAndFetchQuestions, submitQuestions, submitSpecificQuestions, updateResult } from "../redux/slices/questionSlice";
 import { RootState, AppDispatch } from "../redux/store";
 import { updatePageNb } from "../redux/slices/userSlice";
 import auth from '@react-native-firebase/auth';
@@ -15,19 +15,36 @@ export default function Animation() {
   const dispatch = useDispatch<AppDispatch>();
   const state = useSelector((state: RootState) => state.questions);
   const [major, setMajor] = useState<string | null>(null);
+  const [specificMajor, setSpecificMajor] = useState<string | null>(null);
+
   const userEmail = auth().currentUser?.email;
+  const result = useSelector((state: RootState) => state.questions.result);
 
   useEffect(() => {
-    
-      dispatch(submitQuestions(state))
+
+    if (!result)
+      {
+        dispatch(submitQuestions(state))
         .then((result: any) => {
           if (result.type === "questions/submitQuestions/fulfilled") {
             setMajor(result.payload.predicted_domain); // Assuming the API response is the major
           }
         })
         .catch((error) => console.error("Error submitting questions:", error));
-    
+      } else {
+        dispatch(submitSpecificQuestions(state))
+        .then((result: any) => {
+          if (result.type === "questions/submitSpecificQuestions/fulfilled") {
+            setSpecificMajor(result.payload.predicted_domain); // Assuming the API response is the major
+          }
+        })
+        .catch((error) => console.error("Error submitting questions:", error));
+      }
   }, [ dispatch, state]);
+      
+      
+  
+      
 
 
   useEffect(() => {
@@ -46,12 +63,29 @@ export default function Animation() {
         }
       }
     };
+
+    const updateSpecificMajorInFirestore = async () => {
+      if (userEmail && major) {
+        try {
+          await firestore().collection('Users').doc(userEmail).set(
+            { specific_major: specificMajor },
+            { merge: true } // Use merge to update the field without overwriting the entire document
+            
+          );
+          dispatch(updateResult(major));
+          console.log("Specific Major updated successfully in Firestore");
+        } catch (error) {
+          console.error("Error updating specific major in Firestore:", error);
+        }
+      }
+    };
     if (major) {
       updateMajorInFirestore();
       dispatch(updateResult(major));
-
+    } else if (specificMajor) {
+      updateSpecificMajorInFirestore();
     }
-  }, [major, userEmail]);
+  }, [major, userEmail]); 
 
   const navigateHome = () => {
     const updatedPgNb = 1;
@@ -78,17 +112,24 @@ export default function Animation() {
                 and evaluating your academic performance, our recommendation system proposes</Text>
                 <View style = {styles.majorContainer}>
                 <Text style={styles.major}>{major}</Text>
+                {specificMajor? (
+                  <>
+                  <Text>Your are likely going to be: </Text>
+                  <Text style={styles.major}>{specificMajor}</Text>
+                  </>
+                    ) : null }
                 </View>
+                {major && specificMajor ? (
                 <CustomButton 
                 onPress={navigateRecom} 
                 text="Continue the Test"
                 type="PRIMARY" 
-              />
-              {/* <CustomButton 
+              /> ) : (
+              <CustomButton 
                 onPress={navigateHome} 
                 text="Go Back Home"
                 type="PRIMARY" 
-              /> */}
+              /> )}
             </>
           ) : (
             <Text>Loading your recommended major...</Text>

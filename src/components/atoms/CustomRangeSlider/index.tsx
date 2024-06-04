@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     slider: {
         width: 300,
         height: 79,
-        marginBottom: 30,
+        marginBottom: 10,
     },
    
 })

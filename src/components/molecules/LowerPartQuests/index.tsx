@@ -23,8 +23,12 @@ const index = ({question, type, questDesc}) => {
         if (questions && questions.length > 0 && pageNb < questions.length) {
             const updatedPgNb = pageNb+1;
             dispatch(updatePageNb(updatedPgNb))   
-        }else{
-            pageNb ===17 ? navigation.navigate("Question18") : navigation.navigate("Home",{});
+        }else if (pageNb === 17){
+            navigation.navigate("Question18")  ;
+        } else if (pageNb === 15 && questions.length === 15){
+            navigation.navigate("ShowGrades");
+        } else {
+            navigation.navigate("Home",{});
         }
         
     }
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 30,
         alignItems: 'center',
         paddingHorizontal: 0,
-        paddingTop: 40,
+        paddingTop: 20,
     },
     question: {
         padding: 50,

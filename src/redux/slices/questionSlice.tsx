@@ -117,6 +117,36 @@ export const submitQuestions = createAsyncThunk(
     }
 );
 
+export const submitSpecificQuestions = createAsyncThunk(
+    'questions/submitSpecificQuestions',
+    async (questionState: QuestionState, thunkAPI) => {
+        try {
+            const response = await axios.post(`https://fyp-recommender.saadnco.com/predict-${result}`, {
+                features: [
+                    questionState.question1,
+                    questionState.question2,
+                    questionState.question3,
+                    questionState.question4,
+                    questionState.question5,
+                    questionState.question6,
+                    questionState.question7,
+                    questionState.question8,
+                    questionState.question9,
+                    questionState.question10,
+                    questionState.question11,
+                    questionState.question12,
+                    questionState.question13,
+                    questionState.question14,
+                    questionState.question15,
+                ]
+            });
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+);
+
 // Thunk to determine the category and fetch questions accordingly
 export const determineAndFetchQuestions = createAsyncThunk('questions/determineAndFetchQuestions', async (_, thunkAPI) => {
     const state = thunkAPI.getState() as { questions: QuestionState };
