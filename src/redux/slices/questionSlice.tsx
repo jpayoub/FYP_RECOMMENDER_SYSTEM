@@ -33,6 +33,7 @@ interface QuestionState {
     question16: number,
     question17: number,
     result:string,
+    subresult:string,
     questions:Question[],
     loading: boolean,
     error: string | null,
@@ -66,6 +67,7 @@ const initialState: QuestionState = {
     question16: 1,
     question17: 1,
     result:'',
+    subresult:'',
     questions:[],
     loading: false,
     error: null,
@@ -120,8 +122,11 @@ export const submitQuestions = createAsyncThunk(
 export const submitSpecificQuestions = createAsyncThunk(
     'questions/submitSpecificQuestions',
     async (questionState: QuestionState, thunkAPI) => {
+        const {result} = thunkAPI.getState().questions;
+        const resultLowerCase = result.toLowerCase();
+        console.log("result", result);
         try {
-            const response = await axios.post(`https://fyp-recommender.saadnco.com/predict-${result}`, {
+            const response = await axios.post(`https://fyp-recommender.saadnco.com/predict-${resultLowerCase}`, {
                 features: [
                     questionState.question1,
                     questionState.question2,
@@ -274,6 +279,19 @@ export const questionSlice = createSlice({
                 // Handle error state if needed
                 console.error('Prediction error:', action.payload);
             })
+            .addCase(submitSpecificQuestions.pending, (state) => {
+                // Handle loading state if needed
+            })
+            .addCase(submitSpecificQuestions.fulfilled, (state, action) => {
+                // Handle success state and response data if needed
+                console.log('Prediction result:', action.payload);
+                state.subresult = action.payload.predicted_domain;
+            })
+            .addCase(submitSpecificQuestions.rejected, (state, action) => {
+                // Handle error state if needed
+                console.error('Prediction error:', action.payload);
+            })
+
             .addCase(fetchQuestionsByCategory.pending, (state) => {
                 // Handle loading state if needed
             })
