@@ -14,36 +14,23 @@ export default function Animation() {
   const navigation = useNavigation();
   const dispatch = useDispatch<AppDispatch>();
   const state = useSelector((state: RootState) => state.questions);
-  const [major, setMajor] = useState<string | null>(null);
-  const [specificMajor, setSpecificMajor] = useState<string | null>(null);
+  const result = useSelector((state: RootState) => state.questions.result);
+  const subresult = useSelector((state: RootState) => state.questions.subresult);
 
   const userEmail = auth().currentUser?.email;
-  const result = useSelector((state: RootState) => state.questions.result);
 
   useEffect(() => {
 
     if (!result)
       {
         dispatch(submitQuestions(state))
-        .then((result: any) => {
-          if (result.type === "questions/submitQuestions/fulfilled") {
-            setMajor(result.payload.predicted_domain); // Assuming the API response is the major
-          }
-        })
-        .catch((error) => console.error("Error submitting questions:", error));
-        return;
+       
       } else {
-        console.log("hereeeeeeeeee");
+        console.log("fetching specific major here");
         dispatch(submitSpecificQuestions(state))
-
-        .then((result: any) => {
-          if (result.type === "questions/submitSpecificQuestions/fulfilled") {
-            setSpecificMajor(result.payload.predicted_domain); // Assuming the API response is the major
-          }
-        })
-        .catch((error) => console.error("Error submitting questions:", error));
+        
       }
-  }, [ dispatch, state]);
+  }, []);
       
       
   
@@ -52,14 +39,14 @@ export default function Animation() {
 
   useEffect(() => {
     const updateMajorInFirestore = async () => {
-      if (userEmail && major) {
+      if (userEmail && result) {
         try {
           await firestore().collection('Users').doc(userEmail).set(
-            { major: major },
+            { major: result },
             { merge: true } // Use merge to update the field without overwriting the entire document
             
           );
-          dispatch(updateResult(major));
+          dispatch(updateResult(result));
           console.log("Major updated successfully in Firestore");
         } catch (error) {
           console.error("Error updating major in Firestore:", error);
@@ -68,27 +55,27 @@ export default function Animation() {
     };
 
     const updateSpecificMajorInFirestore = async () => {
-      if (userEmail && major) {
+      if (userEmail && result) {
         try {
           await firestore().collection('Users').doc(userEmail).set(
-            { specific_major: specificMajor },
+            { specific_major: subresult },
             { merge: true } // Use merge to update the field without overwriting the entire document
             
           );
-          dispatch(updateResult(major));
+          dispatch(updateResult(result));
           console.log("Specific Major updated successfully in Firestore");
         } catch (error) {
           console.error("Error updating specific major in Firestore:", error);
         }
       }
     };
-    if (major) {
+    if (result) {
       updateMajorInFirestore();
-      dispatch(updateResult(major));
-    } else if (specificMajor) {
+      dispatch(updateResult(result));
+    } else if (subresult) {
       updateSpecificMajorInFirestore();
     }
-  }, [major, userEmail]); 
+  }, [result, userEmail]); 
 
   const navigateHome = () => {
     const updatedPgNb = 1;
@@ -96,7 +83,7 @@ export default function Animation() {
     navigation.navigate("Home");
   };
   const navigateRecom = () => {
-    dispatch(updateResult(major));
+    dispatch(updateResult(result));
             const updatedPgNb = 1;
             dispatch(updatePageNb(updatedPgNb));
             dispatch(determineAndFetchQuestions());
@@ -109,20 +96,20 @@ export default function Animation() {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       
         <View style={styles.container}>
-          {major ? (
+          {result ? (
             <>
               <Text>After analyzing your responses to the psychology-related questions
                 and evaluating your academic performance, our recommendation system proposes</Text>
                 <View style = {styles.majorContainer}>
-                <Text style={styles.major}>{major}</Text>
-                {specificMajor? (
+                <Text style={styles.major}>{result}</Text>
+                {subresult? (
                   <>
                   <Text>Your are likely going to be: </Text>
-                  <Text style={styles.major}>{specificMajor}</Text>
+                  <Text style={styles.major}>{subresult}</Text>
                   </>
                     ) : null }
                 </View>
-                {major ? (
+                {result && !subresult ? (
                 <CustomButton 
                 onPress={navigateRecom} 
                 text="Continue the Test"
