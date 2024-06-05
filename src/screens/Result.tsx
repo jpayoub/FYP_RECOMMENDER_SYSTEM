@@ -31,8 +31,11 @@ export default function Animation() {
           }
         })
         .catch((error) => console.error("Error submitting questions:", error));
+        return;
       } else {
+        console.log("hereeeeeeeeee");
         dispatch(submitSpecificQuestions(state))
+
         .then((result: any) => {
           if (result.type === "questions/submitSpecificQuestions/fulfilled") {
             setSpecificMajor(result.payload.predicted_domain); // Assuming the API response is the major

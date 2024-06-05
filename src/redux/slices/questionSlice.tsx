@@ -140,6 +140,7 @@ export const submitSpecificQuestions = createAsyncThunk(
                     questionState.question15,
                 ]
             });
+            console.log(response.data);
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
