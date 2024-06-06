@@ -55,7 +55,7 @@ export default function Animation() {
     };
 
     const updateSpecificMajorInFirestore = async () => {
-      if (userEmail && result) {
+      if (userEmail && subresult) {
         try {
           await firestore().collection('Users').doc(userEmail).set(
             { specific_major: subresult },
@@ -72,7 +72,8 @@ export default function Animation() {
     if (result) {
       updateMajorInFirestore();
       dispatch(updateResult(result));
-    } else if (subresult) {
+    }
+    if (result && subresult) {
       updateSpecificMajorInFirestore();
     }
   }, [result, userEmail]); 
