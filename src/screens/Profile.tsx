@@ -78,7 +78,7 @@ if (loading) {
         <Text style={styles.major}>{major}</Text>
         {specificMajor? (
         <>
-        <Text style={styles.smallText}>Your are likely going to be: </Text>
+        <Text style={styles.smallText}>Your are likely going to study: </Text>
         <Text style={styles.major}>{specificMajor}</Text>
         </>
           ) : null }

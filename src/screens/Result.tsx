@@ -105,7 +105,7 @@ export default function Animation() {
                 <Text style={styles.major}>{result}</Text>
                 {subresult? (
                   <>
-                  <Text>Your are likely going to be: </Text>
+                  <Text>Your are likely going to study: </Text>
                   <Text style={styles.major}>{subresult}</Text>
                   </>
                     ) : null }
